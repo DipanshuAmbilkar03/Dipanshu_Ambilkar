@@ -1,0 +1,9 @@
+<h1>Gallery</h1>
+<div class="gallery">
+  <% images.forEach(image => { %>
+    <div class="image-card">
+      <img src="/images/gallery/<%= image.filename %>" alt="<%= image.caption %>">
+      <p><%= image.caption %></p>
+    </div>
+  <% }); %>
+</div>

@@ -1,0 +1,972 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to my profile</title>
+    <link href="../css/home.css" rel="stylesheet">
+    <link href="../css/home_journey.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Datatype:wght@100..900&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            font-family: 'Outfit', 'Plus Jakarta Sans', 'Arimo', 'Datatype', sans-serif;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .nav-item {
+            margin: 0 15px;
+            cursor: pointer;
+        }
+        .mainPage {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .main {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+        }
+        .name1, .name2 {
+            font-size: 80px;
+            font-weight: bold;
+            z-index: 1;
+
+        }
+        .image-stack {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .stack-img {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+            filter: brightness(1.1) contrast(1.1);
+        } 
+    </style>
+</head>
+<body>
+    <% const heroImages = images; const rotations = [-6, -3, 0, 3];
+       const timelineEntries = [
+        {
+            period: 'First Year (2023-2024)',
+            tag: 'Foundations',
+            description: 'Opened with Java/Python fundamentals, FE rank 6 (9.68 SGPA), and a decomposable back-support belt prototyped in CATIA while representing my batch as Secretary.'
+        },
+        {
+            period: 'Second Year (2024-2025)',
+            tag: 'IoT Teams',
+            description: 'Led two RFID-led IoT squads, built the DWLR Monitoring System (2nd Prize) and presented at ICRTAIDS 2025 with SIH 2024 exposure.'
+        },
+        {
+            period: 'Third Year - Fifth Sem (2025-2026)',
+            tag: 'Full Stack & Research',
+            description: 'Shipped MERN systems, SIH groundwater alerts, exam seat management tooling, plus IEEE PuneCon paper + hardware IoT wins and UI/UX podiums.'
+        },
+        {
+            period: 'Present',
+            tag: 'AI + Backend',
+            description: 'Scaling production-grade AI assistants, Gemini/OpenAI integrations, and resilient backends while preparing for internship cohorts.'
+        }
+       ];
+       const performanceSemesters = [
+            { label: 'Sem 1', value: 9.68 },
+            { label: 'Sem 2', value: 9.24 },
+            { label: 'Sem 3', value: 9.45 },
+            { label: 'Sem 4', value: 9.36 },
+            { label: 'Sem 5', value: 9.86 }
+       ];
+       const hackathons = [
+            { title: 'Smart India Hackathon', description: 'Urban water distress alerting prototype (DWLR) shortlisted for national finals.', placeholder: 'SIH Badge' },
+            { title: 'ICRTAIDS 2025', description: 'Presented research on RFID-enabled IoT surveillance stack; secured 2nd prize.', placeholder: 'ICRTAIDS' },
+            { title: 'IEEE PuneCon', description: 'Groundwater intelligence hardware paper selected for IEEE proceedings.', placeholder: 'IEEE PuneCon' },
+            { title: 'Campus Product Design', description: '2nd place for immersive portfolio microsite and hardware storytelling.', placeholder: 'Design Sprint' }
+       ];
+      const leetCode = leetcode || null;
+    %>
+    <section class="hero">
+        <header class="hero__nav">
+            <div class="hero__logo">Dipanshu!</div>
+            <button class="hero__menu-toggle" aria-label="Toggle navigation" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="hero__menu">
+                <a href="/projects">Projects</a>
+                <a href="#achievements">Achievements</a>
+                <a href="#gallery">Gallery</a>
+                <a href="/certificate">Certificate</a>
+            </nav>
+        </header>
+
+        <div class="hero__content">
+            <div class="hero__text">
+                <p class="hero__eyebrow">Developer | Data Engineer | Designer</p>
+                <h1 class="hero__title hero__title--compact">
+                    <span class="hero__title-line">Hi,</span>
+                    <span class="hero__title-line">I'am <span class="hero__title-accent">Dipanshu Ambilkar</span></span>
+                </h1>
+
+                <div class="hero__socials">
+                    <a class="hero__social-link" href="https://github.com/dipanshuAmbilkar03/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="GitHub logo">
+                    </a>
+                    <a class="hero__social-link" href="https://www.linkedin.com/in/dipanshuambilkar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn logo">
+                    </a>
+                    <a class="hero__social-link" href="https://leetcode.com/u/dipanshu0312/" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
+                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/leetcode.svg" alt="LeetCode logo">
+                    </a>
+                    <a class="hero__social-link" href="https://www.geeksforgeeks.org/profile/dipanshuaq2tc" target="_blank" rel="noopener noreferrer" aria-label="GeeksforGeeks">
+                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/geeksforgeeks.svg" alt="GeeksforGeeks logo">
+                    </a>
+                    <a class="hero__social-link" href="https://www.kaggle.com/onyxstrangler" target="_blank" rel="noopener noreferrer" aria-label="Kaggle">
+                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kaggle.svg" alt="Kaggle logo">
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero__media">
+                <% heroImages.forEach((img, index) => { %>
+                    <div class="card-layer" data-rotate="<%= rotations[index % rotations.length] %>">
+                        <div class="card-inner">
+                            <img src="/homeImages/<%= img %>" alt="Portfolio visual <%= index + 1 %>" class="stack-img" />
+                            <div class="card-overlay"></div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </section>
+
+    <section class="summary-panels" id="projects">
+        <div class="section-heading">
+            <p class="section-kicker">Navigation Hub</p>
+            <h2>Projects, Achievements & More</h2>
+            <p>Jump into focused collections that showcase shipped products, hackathon wins, gallery keepsakes, and certificates.</p>
+        </div>
+        <div class="summary-panels__grid">
+            <article class="summary-card" aria-labelledby="summary-projects" data-animate>
+                <div class="summary-card__body">
+                    <p class="summary-card__eyebrow">Builds</p>
+                    <h3 id="summary-projects">Projects</h3>
+                    <p>DWLR alerting stack, MERN dashboards, IoT control centers, and AI copilots engineered end-to-end.</p>
+                </div>
+                <a href="/projects" class="summary-card__link">See case studies -></a>
+            </article>
+            <article class="summary-card" id="achievements" aria-labelledby="summary-achievements" data-animate>
+                <div class="summary-card__body">
+                    <p class="summary-card__eyebrow">Milestones</p>
+                    <h3 id="summary-achievements">Achievements</h3>
+                    <p>International podiums, IEEE papers, SIH prototypes, and on-campus design victories.</p>
+                </div>
+                <span class="summary-card__link">Spotlight reel</span>
+            </article>
+            <article class="summary-card" id="gallery" aria-labelledby="summary-gallery" data-animate>
+                <div class="summary-card__body">
+                    <p class="summary-card__eyebrow">Gallery</p>
+                    <h3 id="summary-gallery">Visual Stories</h3>
+                    <p>A living moodboard of prototypes, travel captures, and process shots.</p>
+                </div>
+                <span class="summary-card__link">Curated frames</span>
+            </article>
+            <article class="summary-card" aria-labelledby="summary-certificate" data-animate>
+                <div class="summary-card__body">
+                    <p class="summary-card__eyebrow">Credentials</p>
+                    <h3 id="summary-certificate">Certificates</h3>
+                    <p>Verified coursework, workshops, and research recognitions.</p>
+                </div>
+                <a href="/certificate" class="summary-card__link">View archive -></a>
+            </article>
+        </div>
+    </section>
+
+    <section class="journey" id="journey">
+        <div class="section-heading">
+            <p class="section-kicker">Journey</p>
+            <h2>My Journey</h2>
+            <p>Growth captured as moments across semesters, labs, hackathons, and publications.</p>
+        </div>
+        <div class="timeline" data-scroll-progress>
+            <div class="timeline__track">
+                <div class="timeline__track-fill"></div>
+            </div>
+            <div class="timeline__cards">
+                <% timelineEntries.forEach((entry, index) => { %>
+                    <article class="timeline-card <%= index % 2 === 0 ? 'timeline-card--left' : 'timeline-card--right' %>" data-index="<%= index %>" data-animate>
+                        <div class="timeline-card__glass">
+                            <p class="timeline-card__tag"><%= entry.tag %></p>
+                            <h3><%= entry.period %></h3>
+                            <p><%= entry.description %></p>
+                        </div>
+                    </article>
+                <% }) %>
+            </div>
+        </div>
+    </section>
+
+    <section class="performance" id="performance">
+        <div class="section-heading">
+            <p class="section-kicker">Milestones</p>
+            <h2>Academic Performance</h2>
+            <p>Consistent growth across semesters.</p>
+        </div>
+        <div class="performance__layout" data-animate>
+            <div class="performance__chart">
+                <canvas id="performanceChart" width="640" height="400" data-points='<%= JSON.stringify(performanceSemesters) %>'></canvas>
+            </div>
+            <ul class="performance__stats">
+                <% performanceSemesters.forEach((sem) => { %>
+                    <li>
+                        <span><%= sem.label %></span>
+                        <strong><%= sem.value %></strong>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+    </section>
+
+    <section class="leetcode" id="leetcode">
+        <div class="section-heading">
+            <p class="section-kicker">LeetCode Momentum</p>
+            <h2>Streak & Consistency</h2>
+            <p>Daily grind stats pulled from your live LeetCode profile.</p>
+        </div>
+
+        <% if (leetCode) { %>
+            <div class="leetcode__layout">
+                <article class="leetcode-card leetcode-card--hero" data-animate>
+                    <p class="leetcode-card__kicker">Profile Snapshot</p>
+                    <h3><%= leetCode.totalSolved %> problems solved</h3>
+                    <p>Acceptance rate: <strong><%= leetCode.acceptance %>%</strong></p>
+                    <p>Global rank: <strong>#<%= Number(leetCode.ranking || 0).toLocaleString() %></strong></p>
+                    <a href="<%= leetCode.profileUrl %>" target="_blank" rel="noopener noreferrer">Open LeetCode Profile -></a>
+                </article>
+
+                <article class="leetcode-card leetcode-card--contest" data-animate>
+                    <div class="leetcode-card__title-row">
+                        <p class="leetcode-card__kicker">Contest Rating Trend</p>
+                        <span class="leetcode-pill"><%= leetCode.contest.attendedContests %> contests</span>
+                    </div>
+                    <% if (leetCode.contest.history && leetCode.contest.history.length) { %>
+                        <canvas id="contestChart" width="760" height="280" data-points='<%= JSON.stringify(leetCode.contest.history) %>'></canvas>
+                    <% } else { %>
+                        <div class="leetcode-empty-state">Contest history is not available for this account yet.</div>
+                    <% } %>
+                    <div class="leetcode-contest-meta">
+                        <div>
+                            <span>Current rating</span>
+                            <strong><%= leetCode.contest.rating ? Number(leetCode.contest.rating).toFixed(2) : 'N/A' %></strong>
+                        </div>
+                        <div>
+                            <span>Top %</span>
+                            <strong><%= leetCode.contest.topPercentage ? `${Number(leetCode.contest.topPercentage).toFixed(2)}%` : 'N/A' %></strong>
+                        </div>
+                        <div>
+                            <span>Global rank</span>
+                            <strong><%= leetCode.contest.globalRanking ? `#${Number(leetCode.contest.globalRanking).toLocaleString()}` : 'N/A' %></strong>
+                        </div>
+                        <div>
+                            <span>Contests</span>
+                            <strong><%= leetCode.contest.attendedContests %></strong>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="leetcode-card leetcode-card--streak" data-animate>
+                    <p class="leetcode-card__kicker">Current streak</p>
+                    <h3><%= leetCode.currentStreak %> days</h3>
+                    <p>Active days this year: <strong><%= leetCode.activeDaysThisYear %></strong></p>
+                    <p>Total active days: <strong><%= leetCode.totalActiveDays %></strong></p>
+                </article>
+
+                <article class="leetcode-card leetcode-card--consistency" data-animate>
+                    <p class="leetcode-card__kicker">Consistency score</p>
+                    <h3><%= leetCode.consistencyScore %>%</h3>
+                    <div class="consistency-meter" role="img" aria-label="LeetCode consistency meter">
+                        <span style="--consistency:<%= leetCode.consistencyScore %>"></span>
+                    </div>
+                    <p><%= leetCode.activeDaysThisYear %> active days in <%= leetCode.currentYear %>.</p>
+                </article>
+
+                <article class="leetcode-card leetcode-card--difficulty" data-animate>
+                    <p class="leetcode-card__kicker">Solved by difficulty</p>
+                    <ul class="leetcode-difficulty">
+                        <li><span>Easy</span><strong><%= leetCode.easySolved %></strong></li>
+                        <li><span>Medium</span><strong><%= leetCode.mediumSolved %></strong></li>
+                        <li><span>Hard</span><strong><%= leetCode.hardSolved %></strong></li>
+                    </ul>
+                </article>
+
+                <article class="leetcode-card leetcode-card--heatmap" data-animate>
+                    <p class="leetcode-card__kicker">Submission Heatmap</p>
+                    <% if (leetCode.heatmap && leetCode.heatmap.length) { %>
+                        <div class="leetcode-heatmap-shell">
+                            <div class="leetcode-heatmap" id="leetcodeHeatmap" data-calendar='<%= JSON.stringify(leetCode.heatmap) %>'></div>
+                        </div>
+                        <div class="leetcode-heatmap-legend" aria-hidden="true">
+                            <span>Low</span>
+                            <div class="leetcode-heatmap-scale">
+                                <span data-level="0"></span>
+                                <span data-level="1"></span>
+                                <span data-level="2"></span>
+                                <span data-level="3"></span>
+                                <span data-level="4"></span>
+                            </div>
+                            <span>High</span>
+                        </div>
+                        <p class="leetcode-note">Last 26 weeks of daily submissions.</p>
+                    <% } else { %>
+                        <div class="leetcode-empty-state">Heatmap data is currently unavailable.</div>
+                    <% } %>
+                </article>
+
+                <article class="leetcode-card leetcode-card--badges" data-animate>
+                    <p class="leetcode-card__kicker">Recent badges</p>
+                    <% if (leetCode.badges.length) { %>
+                        <div class="leetcode-badges">
+                            <% leetCode.badges.forEach((badge) => { %>
+                                <div class="leetcode-badge-item">
+                                    <img src="<%= badge.icon %>" alt="<%= badge.name %>">
+                                    <div>
+                                        <h4><%= badge.name %></h4>
+                                        <p><%= badge.createdAt %></p>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        </div>
+                    <% } else { %>
+                        <p>Keep solving to unlock your first badge showcase here.</p>
+                    <% } %>
+                </article>
+            </div>
+        <% } else { %>
+            <article class="leetcode-card leetcode-card--fallback" data-animate>
+                <p class="leetcode-card__kicker">LeetCode sync paused</p>
+                <h3>Could not fetch live profile stats right now.</h3>
+                <p>The section is ready and will auto-populate on the next successful refresh.</p>
+                <a href="https://leetcode.com/u/dipanshu0312/" target="_blank" rel="noopener noreferrer">Visit profile -></a>
+            </article>
+        <% } %>
+    </section>
+
+    <section class="hackathons" id="hackathons">
+        <div class="section-heading">
+            <p class="section-kicker">Hackathons & Competitions</p>
+            <h2>Crowded rooms, bold demos.</h2>
+            <p>Prototypes, pitches, and research that travelled across juries.</p>
+        </div>
+        <div class="hackathons__grid">
+            <% hackathons.forEach((item) => { %>
+                <article class="hack-card" data-animate>
+                    <div class="hack-card__media">
+                        <span><%= item.placeholder %></span>
+                    </div>
+                    <div class="hack-card__body">
+                        <h3><%= item.title %></h3>
+                        <p><%= item.description %></p>
+                    </div>
+                </article>
+            <% }) %>
+        </div>
+    </section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.querySelector('.hero__menu-toggle');
+        const navMenu = document.querySelector('.hero__menu');
+
+        if (menuToggle && navMenu) {
+            const closeMenu = () => {
+                navMenu.classList.remove('is-open');
+                menuToggle.classList.remove('is-open');
+            };
+
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('is-open');
+                menuToggle.classList.toggle('is-open');
+            });
+
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+        }
+
+        const heroCards = document.querySelectorAll('.card-layer');
+        const cardQueue = Array.from(heroCards);
+        const swapDuration = 1.15;
+        const cycleDelay = 3.8;
+        const slotTemplate = [
+            { x: 80, y: -18, scale: 1 },
+            { x: 42, y: -2, scale: 0.97 },
+            { x: 4, y: 22, scale: 0.94 },
+            { x: -30, y: 42, scale: 0.9 },
+            { x: -58, y: 60, scale: 0.87 }
+        ];
+
+        const getSlotValues = (slotIndex) => {
+            const pattern = slotTemplate[Math.min(slotIndex, slotTemplate.length - 1)];
+            const overflow = Math.max(0, slotIndex - (slotTemplate.length - 1));
+            return {
+                x: pattern.x - overflow * 4,
+                y: pattern.y + overflow * 10,
+                scale: Math.max(0.82, pattern.scale - overflow * 0.02)
+            };
+        };
+
+        cardQueue.forEach((card, index) => {
+            const rotation = parseFloat(card.dataset.rotate) || 0;
+            const slot = getSlotValues(index);
+
+            card.style.zIndex = cardQueue.length - index;
+
+            gsap.set(card, {
+                x: 300 + slot.x,
+                y: -300 + slot.y,
+                opacity: 0,
+                scale: 0.8,
+                rotate: rotation
+            });
+
+            gsap.to(card, {
+                keyframes: [
+                    { x: 240 + slot.x, y: -240 + slot.y, opacity: 0.35, scale: 0.86 },
+                    { x: 180 + slot.x, y: -180 + slot.y, opacity: 0.6, scale: 0.92 },
+                    { x: 120 + slot.x, y: -120 + slot.y, opacity: 0.8, scale: 0.97 },
+                    { x: 60 + slot.x, y: -60 + slot.y, opacity: 0.95, scale: 1 },
+                    { x: slot.x, y: slot.y, opacity: 1, scale: slot.scale }
+                ],
+                duration: 2,
+                ease: 'steps(5)',
+                delay: index * 0.25,
+                onComplete: () => {
+                    card.style.zIndex = cardQueue.length - index;
+                    if (index === 0) {
+                        card.classList.add('card-layer--active');
+                    }
+                }
+            });
+        });
+
+        const startSwapLoop = (queue) => {
+            if (!queue.length) return;
+
+            const updateStack = (instant = false) => {
+                queue.forEach((card, idx) => {
+                    const slot = getSlotValues(idx);
+                    card.classList.toggle('card-layer--active', idx === 0);
+                    card.style.zIndex = queue.length - idx;
+                    gsap.to(card, {
+                        x: slot.x,
+                        y: slot.y,
+                        scale: slot.scale,
+                        duration: instant ? 0 : swapDuration,
+                        ease: 'power2.inOut'
+                    });
+                });
+            };
+
+            updateStack(true);
+
+            const cycle = () => {
+                queue.push(queue.shift());
+                updateStack();
+                gsap.delayedCall(cycleDelay, cycle);
+            };
+
+            gsap.delayedCall(cycleDelay, cycle);
+        };
+
+        const introDelay = (cardQueue.length - 1) * 0.25 + 2.2;
+        gsap.delayedCall(introDelay, () => startSwapLoop(cardQueue));
+
+        const animatedNodes = document.querySelectorAll('[data-animate]');
+        const animateObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    animateObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.35 });
+
+        animatedNodes.forEach(node => animateObserver.observe(node));
+
+        const timelineElement = document.querySelector('.timeline');
+        const trackFill = document.querySelector('.timeline__track-fill');
+
+        const updateTimelineFill = () => {
+            if (!timelineElement || !trackFill) return;
+            const rect = timelineElement.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const totalHeight = rect.height + viewportHeight;
+            const progress = Math.min(Math.max((viewportHeight - rect.top) / totalHeight, 0), 1);
+            trackFill.style.height = `${progress * 100}%`;
+        };
+
+        updateTimelineFill();
+        window.addEventListener('scroll', updateTimelineFill);
+
+        const initPerformanceChart = () => {
+            const canvas = document.getElementById('performanceChart');
+            if (!canvas) return;
+
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            document.body.appendChild(tooltip);
+
+            let points = [];
+            const data = JSON.parse(canvas.dataset.points || '[]');
+            const ctx = canvas.getContext('2d');
+            let animationStarted = false;
+
+            const resizeCanvas = () => {
+                const dpr = window.devicePixelRatio || 1;
+                const { width, height } = canvas.getBoundingClientRect();
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                ctx.scale(dpr, dpr);
+            };
+
+            const clearCanvas = () => {
+                ctx.save();
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+            };
+
+            const computePoints = () => {
+                const { width, height } = canvas.getBoundingClientRect();
+                const padding = { top: 30, right: 40, bottom: 40, left: 45 };
+                const chartWidth = width - padding.left - padding.right;
+                const chartHeight = height - padding.top - padding.bottom;
+                const values = data.map(item => item.value);
+                const max = Math.max(...values) + 0.2;
+                const min = Math.min(...values) - 0.2;
+                const range = max - min;
+
+                points = data.map((item, index) => {
+                    const x = padding.left + (chartWidth / (data.length - 1)) * index;
+                    const y = padding.top + chartHeight - ((item.value - min) / range) * chartHeight;
+                    return { x, y, label: item.label, value: item.value };
+                });
+
+                return { padding, chartWidth, chartHeight };
+            };
+
+            const drawGrid = ({ padding, chartWidth, chartHeight }) => {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+                ctx.lineWidth = 1;
+                const lines = 4;
+                for (let i = 0; i <= lines; i += 1) {
+                    const y = padding.top + (chartHeight / lines) * i;
+                    ctx.beginPath();
+                    ctx.moveTo(padding.left, y);
+                    ctx.lineTo(padding.left + chartWidth, y);
+                    ctx.stroke();
+                }
+            };
+
+            const drawLine = (progress, dims) => {
+                const { padding } = dims;
+                const bounds = canvas.getBoundingClientRect();
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(0, 0, padding.left + (bounds.width - padding.left) * progress + 8, bounds.height + 8);
+                ctx.clip();
+
+                ctx.beginPath();
+                ctx.lineWidth = 3;
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#ffffff';
+                ctx.shadowColor = 'rgba(255, 255, 255, 0.4)';
+                ctx.shadowBlur = 12;
+
+                points.forEach((point, index) => {
+                    if (index === 0) {
+                        ctx.moveTo(point.x, point.y);
+                    } else {
+                        const prev = points[index - 1];
+                        const midX = (prev.x + point.x) / 2;
+                        const midY = (prev.y + point.y) / 2;
+                        ctx.quadraticCurveTo(prev.x, prev.y, midX, midY);
+                    }
+                });
+
+                const last = points[points.length - 1];
+                const prev = points[points.length - 2];
+                ctx.quadraticCurveTo(prev.x, prev.y, last.x, last.y);
+                ctx.stroke();
+                ctx.restore();
+
+                points.forEach((point, index) => {
+                    if (progress < index / (points.length - 1)) return;
+                    const isPeak = point.value === Math.max(...data.map(item => item.value));
+                    ctx.beginPath();
+                    ctx.fillStyle = '#ffffff';
+                    ctx.shadowBlur = isPeak ? 18 : 8;
+                    ctx.shadowColor = isPeak ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.4)';
+                    ctx.arc(point.x, point.y, isPeak ? 6 : 5, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            };
+
+            const render = (progress = 0) => {
+                const dims = computePoints();
+                clearCanvas();
+                drawGrid(dims);
+                drawLine(progress, dims);
+            };
+
+            let animationFrame;
+            const animate = (startTime) => {
+                return (timestamp) => {
+                    const elapsed = timestamp - startTime;
+                    const duration = 1600;
+                    const progress = Math.min(elapsed / duration, 1);
+                    render(progress);
+                    if (progress < 1) {
+                        animationFrame = requestAnimationFrame(animate(startTime));
+                    }
+                };
+            };
+
+            const startAnimation = () => {
+                if (animationStarted) return;
+                animationStarted = true;
+                cancelAnimationFrame(animationFrame);
+                const start = performance.now();
+                animationFrame = requestAnimationFrame(animate(start));
+            };
+
+            const hoverHandler = (event) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                let closest = null;
+                let minDist = Infinity;
+                points.forEach(point => {
+                    const dist = Math.hypot(point.x - x, point.y - y);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        closest = point;
+                    }
+                });
+                if (closest && minDist < 24) {
+                    tooltip.textContent = `${closest.label}: ${closest.value}`;
+                    tooltip.style.left = `${event.clientX + 12}px`;
+                    tooltip.style.top = `${event.clientY - 12}px`;
+                    tooltip.classList.add('is-visible');
+                } else {
+                    tooltip.classList.remove('is-visible');
+                }
+            };
+
+            canvas.addEventListener('mousemove', hoverHandler);
+            canvas.addEventListener('mouseleave', () => tooltip.classList.remove('is-visible'));
+
+            resizeCanvas();
+            render();
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                render(animationStarted ? 1 : 0);
+            });
+
+            const chartObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startAnimation();
+                        chartObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            chartObserver.observe(canvas);
+        };
+
+        const initContestChart = () => {
+            const canvas = document.getElementById('contestChart');
+            if (!canvas) return;
+
+            const data = JSON.parse(canvas.dataset.points || '[]');
+            if (!data.length) return;
+
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            document.body.appendChild(tooltip);
+
+            const ctx = canvas.getContext('2d');
+            let points = [];
+            let animationStarted = false;
+
+            const resizeCanvas = () => {
+                const dpr = window.devicePixelRatio || 1;
+                const { width, height } = canvas.getBoundingClientRect();
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                ctx.scale(dpr, dpr);
+            };
+
+            const clearCanvas = () => {
+                ctx.save();
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+            };
+
+            const computePoints = () => {
+                const { width, height } = canvas.getBoundingClientRect();
+                const padding = { top: 22, right: 24, bottom: 42, left: 28 };
+                const chartWidth = width - padding.left - padding.right;
+                const chartHeight = height - padding.top - padding.bottom;
+                const values = data.map(item => Number(item.rating || 0));
+                let max = Math.max(...values);
+                let min = Math.min(...values);
+
+                if (max === min) {
+                    max += 40;
+                    min -= 40;
+                } else {
+                    max += 20;
+                    min -= 20;
+                }
+
+                const range = max - min;
+
+                points = data.map((item, index) => {
+                    const x = data.length === 1
+                        ? padding.left + chartWidth / 2
+                        : padding.left + (chartWidth / (data.length - 1)) * index;
+                    const y = padding.top + chartHeight - ((item.rating - min) / range) * chartHeight;
+                    return {
+                        x,
+                        y,
+                        label: item.shortTitle || item.title,
+                        rating: Number(item.rating || 0),
+                        ranking: item.ranking,
+                    };
+                });
+
+                return { padding, chartWidth, chartHeight };
+            };
+
+            const drawGrid = ({ padding, chartWidth, chartHeight }) => {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+                ctx.lineWidth = 1;
+                for (let i = 0; i <= 4; i += 1) {
+                    const y = padding.top + (chartHeight / 4) * i;
+                    ctx.beginPath();
+                    ctx.moveTo(padding.left, y);
+                    ctx.lineTo(padding.left + chartWidth, y);
+                    ctx.stroke();
+                }
+            };
+
+            const drawLine = (progress, dims) => {
+                const { padding, chartWidth, chartHeight } = dims;
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(padding.left, padding.top, chartWidth * progress, chartHeight + 8);
+                ctx.clip();
+
+                ctx.beginPath();
+                ctx.lineWidth = 3;
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#e2e8f0';
+                ctx.shadowColor = 'rgba(226, 232, 240, 0.35)';
+                ctx.shadowBlur = 14;
+
+                points.forEach((point, index) => {
+                    if (index === 0) {
+                        ctx.moveTo(point.x, point.y);
+                    } else {
+                        const prev = points[index - 1];
+                        const midX = (prev.x + point.x) / 2;
+                        const midY = (prev.y + point.y) / 2;
+                        ctx.quadraticCurveTo(prev.x, prev.y, midX, midY);
+                    }
+                });
+
+                if (points.length > 1) {
+                    const last = points[points.length - 1];
+                    const prev = points[points.length - 2];
+                    ctx.quadraticCurveTo(prev.x, prev.y, last.x, last.y);
+                }
+
+                ctx.stroke();
+                ctx.restore();
+
+                points.forEach((point, index) => {
+                    const threshold = points.length === 1 ? 0 : index / (points.length - 1);
+                    if (progress < threshold) return;
+                    ctx.beginPath();
+                    ctx.fillStyle = '#f8fafc';
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = 'rgba(248, 250, 252, 0.45)';
+                    ctx.arc(point.x, point.y, 4.5, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                const firstPoint = points[0];
+                const lastPoint = points[points.length - 1];
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
+                ctx.font = '12px Outfit, sans-serif';
+                ctx.textAlign = 'left';
+                ctx.fillText(firstPoint.label, firstPoint.x, padding.top + chartHeight + 26);
+                ctx.textAlign = 'right';
+                ctx.fillText(lastPoint.label, lastPoint.x, padding.top + chartHeight + 26);
+            };
+
+            const render = (progress = 1) => {
+                const dims = computePoints();
+                clearCanvas();
+                drawGrid(dims);
+                drawLine(progress, dims);
+            };
+
+            let animationFrame;
+            const animate = (startTime) => {
+                return (timestamp) => {
+                    const elapsed = timestamp - startTime;
+                    const progress = Math.min(elapsed / 1400, 1);
+                    render(progress);
+                    if (progress < 1) {
+                        animationFrame = requestAnimationFrame(animate(startTime));
+                    }
+                };
+            };
+
+            const startAnimation = () => {
+                if (animationStarted) return;
+                animationStarted = true;
+                cancelAnimationFrame(animationFrame);
+                animationFrame = requestAnimationFrame(animate(performance.now()));
+            };
+
+            const hoverHandler = (event) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                let closest = null;
+                let minDist = Infinity;
+
+                points.forEach((point) => {
+                    const dist = Math.hypot(point.x - x, point.y - y);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        closest = point;
+                    }
+                });
+
+                if (closest && minDist < 22) {
+                    const rankLabel = Number.isFinite(closest.ranking)
+                        ? `#${Number(closest.ranking).toLocaleString()}`
+                        : 'N/A';
+                    tooltip.textContent = `${closest.label}: ${closest.rating.toFixed(2)} (Rank ${rankLabel})`;
+                    tooltip.style.left = `${event.clientX + 12}px`;
+                    tooltip.style.top = `${event.clientY - 12}px`;
+                    tooltip.classList.add('is-visible');
+                } else {
+                    tooltip.classList.remove('is-visible');
+                }
+            };
+
+            canvas.addEventListener('mousemove', hoverHandler);
+            canvas.addEventListener('mouseleave', () => tooltip.classList.remove('is-visible'));
+
+            resizeCanvas();
+            render(0);
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                render(animationStarted ? 1 : 0);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        startAnimation();
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(canvas);
+        };
+
+        const initLeetCodeHeatmap = () => {
+            const heatmap = document.getElementById('leetcodeHeatmap');
+            if (!heatmap) return;
+
+            const entries = JSON.parse(heatmap.dataset.calendar || '[]');
+            if (!entries.length) return;
+
+            const counts = entries.map(entry => Number(entry.count || 0));
+            const maxCount = Math.max(...counts, 1);
+
+            const getHeatLevel = (count) => {
+                if (count <= 0) return 0;
+                const ratio = count / maxCount;
+                if (ratio <= 0.25) return 1;
+                if (ratio <= 0.5) return 2;
+                if (ratio <= 0.75) return 3;
+                return 4;
+            };
+
+            heatmap.innerHTML = '';
+            const firstDate = new Date(`${entries[0].date}T00:00:00`);
+            const leadOffset = (firstDate.getDay() + 6) % 7;
+
+            for (let i = 0; i < leadOffset; i += 1) {
+                const spacer = document.createElement('span');
+                spacer.className = 'heatmap-cell heatmap-cell--empty';
+                heatmap.appendChild(spacer);
+            }
+
+            entries.forEach((entry) => {
+                const count = Number(entry.count || 0);
+                const cell = document.createElement('span');
+                cell.className = `heatmap-cell heatmap-cell--level-${getHeatLevel(count)}`;
+                cell.setAttribute('role', 'img');
+                cell.setAttribute('aria-label', `${entry.date}: ${count} submissions`);
+                cell.title = `${entry.date}: ${count} submissions`;
+                heatmap.appendChild(cell);
+            });
+        };
+
+        initPerformanceChart();
+        initContestChart();
+        initLeetCodeHeatmap();
+    });
+</script>
+
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects | Dipanshu Ambilkar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Datatype:wght@100..900&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/project.css">
+</head>
+<body>
+
+    <header class="hero__nav">
+        <a href="/" class="hero__logo">Dipanshu!</a>
+        <button class="hero__menu-toggle" aria-label="Toggle navigation" type="button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="hero__menu" aria-label="Primary">
+            <a href="/">Home</a>
+            <a href="/projects" class="is-active">Projects</a>
+            <a href="/#achievements">Achievements</a>
+            <a href="/gallery">Gallery</a>
+            <a href="/certificate">Certificates</a>
+        </nav>
+    </header>
+
+    <section class="projects-shell">
+        <div class="projects-hero">
+            <p class="projects-kicker">Build Portfolio</p>
+            <h1>Selected Projects</h1>
+            <p>Production experiments across AI, full stack apps, and practical tools shipped to real users.</p>
+        </div>
+
+        <div class="projects-grid">
+        <% for(let project of projects) { %>
+            <article class="card">
+                <div>
+                    <h3><%= project.title %></h3>
+                    <div class="tags">
+                        <% project.technologies.forEach(tag => { %>
+                            <span><%= tag %></span>
+                        <% }) %>
+                    </div>
+                    <p><%= project.description %></p>
+                </div>
+                
+                <div class="links">
+                    <a href="<%= project.githubLink %>" target="_blank">
+                        Open Link ↗
+                    </a>
+                    <% if(project.liveLink) { %>
+                        <a href="https://<%= project.liveLink %>" target="_blank">
+                            Live Demo ↗
+                        </a>
+                    <% } %>
+                </div>
+            </article>
+        <% } %>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.hero__menu-toggle');
+            const navMenu = document.querySelector('.hero__menu');
+
+            if (!menuToggle || !navMenu) return;
+
+            const closeMenu = () => {
+                navMenu.classList.remove('is-open');
+                menuToggle.classList.remove('is-open');
+            };
+
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('is-open');
+                menuToggle.classList.toggle('is-open');
+            });
+
+            navMenu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', closeMenu);
+            });
+        });
+    </script>
+
+</body>
+</html>

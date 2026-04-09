@@ -1,0 +1,25 @@
+.tech-stack {
+    padding: 0 14px;
+    margin-bottom: 10px;
+}
+.badge {
+    background: #444;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-right: 5px;
+}
+.links {
+    padding: 10px 14px 20px;
+}
+.links a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    margin-right: 15px;
+    font-size: 0.9rem;
+}
+.links a:hover {
+    text-decoration: underline;
+}
