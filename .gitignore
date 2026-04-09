@@ -3,3 +3,4 @@ prompt.md
 .env.local
 .env.*.local
 .vercel
+image/gallery/
