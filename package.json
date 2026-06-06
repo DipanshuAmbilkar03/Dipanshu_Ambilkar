@@ -11,11 +11,11 @@
     "node": "20.x"
   },
   "dependencies": {
+    "cloudinary": "^2.10.0",
     "dotenv": "^16.6.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
-    "fs": "^0.0.1-security",
     "mongoose": "^8.15.1",
-    "router": "^2.2.0"
+    "multer": "^2.1.1"
   }
 }

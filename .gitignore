@@ -3,4 +3,10 @@ prompt.md
 .env.local
 .env.*.local
 .vercel
-image/gallery/
+dipanshu/
+node_modules/
+public/uploads/
+.env.example
+F:\profile\.env.example
+DEPLOYMENT.md
+.env.example

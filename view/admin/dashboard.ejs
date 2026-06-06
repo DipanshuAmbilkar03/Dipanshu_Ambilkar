@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Admin</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin-page">
+    <header class="admin-topbar">
+        <a class="admin-logo" href="/admin">Portfolio Admin</a>
+        <nav class="admin-topbar__actions" aria-label="Admin actions">
+            <a href="#overview">Overview</a>
+            <a href="#content">Content</a>
+            <a href="#resume-manager">Resume</a>
+            <a href="#projects">Projects</a>
+            <a href="#certificates">Certificates</a>
+            <a href="#gallery">Gallery</a>
+            <a href="/" target="_blank" rel="noopener noreferrer">View Site</a>
+            <form method="POST" action="/admin/logout">
+                <button type="submit">Logout</button>
+            </form>
+        </nav>
+    </header>
+
+    <main class="admin-shell" id="overview">
+        <section class="admin-hero">
+            <div>
+                <p class="admin-kicker">Private Editor</p>
+                <h1>Control what visitors see</h1>
+                <p>Review the live portfolio content, jump to any section, and update the public site without changing code.</p>
+            </div>
+
+            <% if (message) { %>
+                <div class="admin-alert"><%= message %></div>
+            <% } %>
+
+            <% if (usingDefaultPassword) { %>
+                <div class="admin-alert admin-alert--warning">Set ADMIN_PASSWORD and ADMIN_COOKIE_SECRET in .env before sharing this admin editor.</div>
+            <% } %>
+
+            <% if (deployWarnings && deployWarnings.length) { %>
+                <div class="admin-alert admin-alert--warning">
+                    <strong>Deployment setup needed</strong>
+                    <ul class="admin-warning-list">
+                        <% deployWarnings.forEach((warning) => { %>
+                            <li><%= warning %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% } %>
+        </section>
+
+        <section class="admin-overview" aria-label="Portfolio overview">
+            <div class="admin-stats-grid">
+                <% adminOverview.stats.forEach((stat) => { %>
+                    <article class="admin-stat">
+                        <p><%= stat.label %></p>
+                        <strong><%= stat.value %></strong>
+                        <span><%= stat.detail %></span>
+                    </article>
+                <% }) %>
+            </div>
+
+            <div class="admin-overview-grid">
+                <article class="admin-panel admin-panel--hero">
+                    <p class="admin-kicker">Home Preview</p>
+                    <h2><%= content.heroRoles %></h2>
+                    <p><%= content.heroLead %></p>
+                    <div class="admin-chip-row">
+                        <% content.skillGroups.slice(0, 3).forEach((group) => { %>
+                            <span><%= group.title %></span>
+                        <% }) %>
+                    </div>
+                </article>
+
+                <article class="admin-panel">
+                    <p class="admin-kicker">Resume</p>
+                    <h2><%= resumeDisplay.hasResume ? 'PDF is live' : 'No PDF uploaded' %></h2>
+                    <p class="admin-break"><%= resumeDisplay.label %></p>
+                    <% if (resumeDisplay.uploadedAt) { %>
+                        <p>Uploaded <%= resumeDisplay.uploadedAt %></p>
+                    <% } %>
+                    <div class="admin-panel__actions">
+                        <% if (resumeDisplay.hasResume) { %>
+                            <a class="button button--primary" href="/resume" target="_blank" rel="noopener noreferrer">Open Resume</a>
+                        <% } %>
+                        <a class="button button--secondary" href="#resume-manager">Manage Resume</a>
+                    </div>
+                </article>
+
+                <article class="admin-panel">
+                    <p class="admin-kicker">Latest Projects</p>
+                    <% if (adminOverview.latestProjects.length) { %>
+                        <ul class="admin-preview-list">
+                            <% adminOverview.latestProjects.forEach((project) => { %>
+                                <li>
+                                    <strong><%= project.title %></strong>
+                                    <span><%= (project.technologies || []).slice(0, 3).join(', ') || 'No tags yet' %></span>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <p>No projects added yet.</p>
+                    <% } %>
+                </article>
+
+                <article class="admin-panel">
+                    <p class="admin-kicker">Certificates</p>
+                    <% if (adminOverview.latestCertificates.length) { %>
+                        <ul class="admin-preview-list">
+                            <% adminOverview.latestCertificates.forEach((certificate) => { %>
+                                <li>
+                                    <strong><%= certificate.title %></strong>
+                                    <span><%= certificate.visible ? 'Visible' : 'Hidden' %></span>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <p>Import the fallback certificates or add a new credential.</p>
+                    <% } %>
+                </article>
+
+                <article class="admin-panel">
+                    <p class="admin-kicker">Media Snapshot</p>
+                    <% if (adminOverview.latestGalleryImages.length) { %>
+                        <div class="admin-mini-gallery">
+                            <% adminOverview.latestGalleryImages.forEach((image) => {
+                                const imageSrc = image.imageUrl || (/^https?:\/\//.test(image.filename) || String(image.filename).startsWith('/') ? image.filename : `/image/gallery/${image.filename}`);
+                            %>
+                                <img src="<%= imageSrc %>" alt="<%= image.caption || image.filename %>" loading="lazy" decoding="async">
+                            <% }) %>
+                        </div>
+                    <% } else { %>
+                        <p>No gallery images added yet.</p>
+                    <% } %>
+                </article>
+            </div>
+
+            <nav class="admin-quicknav" aria-label="Editor sections">
+                <a href="#content">Edit Content</a>
+                <a href="#resume-manager">Upload Resume</a>
+                <a href="#projects">Manage Projects</a>
+                <a href="#certificates">Manage Certificates</a>
+                <a href="#gallery">Manage Gallery</a>
+            </nav>
+        </section>
+
+        <section class="admin-section" id="content">
+            <div class="admin-section__heading">
+                <p class="admin-kicker">Home + Skills</p>
+                <h2>Portfolio Details</h2>
+                <p>Update the hero message and skill groups shown on the home page.</p>
+            </div>
+
+            <div class="admin-two-column">
+                <article class="admin-panel">
+                    <p class="admin-kicker">Current Site Copy</p>
+                    <h3><%= content.heroRoles %></h3>
+                    <p><%= content.heroLead %></p>
+                    <hr>
+                    <h3>Cloudinary Uploads</h3>
+                    <p><%= cloudinaryConfigured ? 'Ready for image and PDF uploads.' : 'Add Cloudinary credentials before using uploads in production.' %></p>
+                    <div class="admin-chip-row">
+                        <% content.skillGroups.forEach((group) => { %>
+                            <span><%= group.title %>: <%= (group.skills || []).length %></span>
+                        <% }) %>
+                    </div>
+                </article>
+
+                <form class="admin-card admin-form" method="POST" action="/admin/content">
+                    <label for="heroRoles">Hero roles</label>
+                    <input id="heroRoles" name="heroRoles" type="text" value="<%= content.heroRoles %>">
+
+                    <label for="heroLead">Hero intro</label>
+                    <textarea id="heroLead" name="heroLead" rows="3"><%= content.heroLead %></textarea>
+
+                    <label for="skillGroups">Skill groups</label>
+                    <textarea id="skillGroups" name="skillGroups" rows="7" placeholder="Languages: Java, Python, JavaScript"><%= skillGroupsInput %></textarea>
+
+                    <button class="button button--primary" type="submit">Save Portfolio Details</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="admin-section" id="resume-manager">
+            <div class="admin-section__heading">
+                <p class="admin-kicker">Resume PDF</p>
+                <h2>Navbar Resume Upload</h2>
+                <p>The public Resume nav item opens this PDF. Upload a replacement anytime. Keep files under <%= maxUploadMb %> MB on Vercel.</p>
+            </div>
+
+            <div class="admin-resume-grid">
+                <article class="admin-panel admin-resume-status">
+                    <p class="admin-kicker">Current Resume</p>
+                    <h3><%= resumeDisplay.hasResume ? resumeDisplay.label : 'No active resume PDF' %></h3>
+                    <% if (resumeDisplay.hasResume) { %>
+                        <p class="admin-break"><%= resumeDisplay.url %></p>
+                        <% if (resumeDisplay.needsCloudinaryMigration) { %>
+                            <div class="admin-alert admin-alert--warning">This resume is still using the old local upload path. Re-upload the PDF here after adding Cloudinary credentials.</div>
+                        <% } %>
+                        <% if (resumeDisplay.uploadedAt) { %>
+                            <p>Uploaded <%= resumeDisplay.uploadedAt %></p>
+                        <% } %>
+                        <div class="admin-panel__actions">
+                            <a class="button button--primary" href="/resume" target="_blank" rel="noopener noreferrer">Open Public Resume</a>
+                            <form method="POST" action="/admin/resume/delete">
+                                <button class="admin-danger-button" type="submit">Remove Resume</button>
+                            </form>
+                        </div>
+                    <% } else { %>
+                        <p>The Resume nav link returns home until a PDF is uploaded or linked.</p>
+                    <% } %>
+                </article>
+
+                <form class="admin-card admin-form" method="POST" action="/admin/resume/upload" enctype="multipart/form-data">
+                    <label for="resumePdf">Upload PDF resume to Cloudinary</label>
+                    <input id="resumePdf" name="resumePdf" type="file" accept="application/pdf" required>
+                    <button class="button button--primary" type="submit">Upload PDF Resume</button>
+                </form>
+
+                <form class="admin-card admin-form" method="POST" action="/admin/resume/link">
+                    <label for="resumeUrl">Or use an existing resume link</label>
+                    <input id="resumeUrl" name="resumeUrl" type="text" value="<%= resumeDisplay.url %>" placeholder="https://res.cloudinary.com/.../resume.pdf">
+                    <button class="button button--secondary" type="submit">Save Resume Link</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="admin-section" id="projects">
+            <div class="admin-section__heading">
+                <p class="admin-kicker">Projects</p>
+                <h2>Projects on the portfolio</h2>
+                <p>Add new work or open a current project card to edit what visitors see. Cloudinary image uploads should stay under <%= maxUploadMb %> MB.</p>
+            </div>
+
+            <form class="admin-card admin-form admin-form--grid" method="POST" action="/admin/projects" enctype="multipart/form-data">
+                <label>Title <input name="title" type="text" required></label>
+                <label>Order <input name="order" type="number" value="999"></label>
+                <label>Image URL/path <input name="image" type="text" placeholder="https://res.cloudinary.com/..."></label>
+                <label>Upload image <input name="projectImage" type="file" accept="image/*"></label>
+                <label>GitHub/link <input name="githubLink" type="url" placeholder="https://..."></label>
+                <label>Live demo <input name="liveLink" type="text" placeholder="example.vercel.app"></label>
+                <label>Technologies <input name="technologies" type="text" placeholder="Node, MongoDB, AI"></label>
+                <label class="admin-form__wide">Description <textarea name="description" rows="3" required></textarea></label>
+                <button class="button button--primary" type="submit">Add Project</button>
+            </form>
+
+            <div class="admin-list">
+                <% if (!projects.length) { %>
+                    <article class="admin-panel">
+                        <h3>No projects added yet</h3>
+                        <p>Add the first project above and it will appear on the public Projects page.</p>
+                    </article>
+                <% } %>
+                <% projects.forEach((project, index) => {
+                    const technologies = Array.isArray(project.technologies) ? project.technologies : [];
+                    const projectImage = project.image || '';
+                    const imageSrc = projectImage
+                        ? (/^https?:\/\//.test(projectImage) || projectImage.startsWith('/') ? projectImage : `/photo/${projectImage}`)
+                        : '';
+                %>
+                    <details class="admin-card admin-editor-card" <%= index === 0 ? 'open' : '' %>>
+                        <summary>
+                            <span>
+                                <strong><%= project.title %></strong>
+                                <small><%= technologies.slice(0, 4).join(', ') || 'No technologies listed' %></small>
+                            </span>
+                            <em>Order <%= project.order || 999 %></em>
+                        </summary>
+
+                        <div class="admin-item-preview">
+                            <% if (imageSrc) { %>
+                                <img src="<%= imageSrc %>" alt="<%= project.title %> preview" loading="lazy" decoding="async">
+                            <% } else { %>
+                                <div class="admin-preview-placeholder"><%= String(project.title || 'PR').slice(0, 2).toUpperCase() %></div>
+                            <% } %>
+                            <p><%= project.description %></p>
+                        </div>
+
+                        <form class="admin-form admin-form--grid" method="POST" action="/admin/projects/<%= project._id %>" enctype="multipart/form-data">
+                            <label>Title <input name="title" type="text" value="<%= project.title %>" required></label>
+                            <label>Order <input name="order" type="number" value="<%= project.order %>"></label>
+                            <label>Image URL/path <input name="image" type="text" value="<%= project.image || '' %>"></label>
+                            <label>Replace image <input name="projectImage" type="file" accept="image/*"></label>
+                            <label>GitHub/link <input name="githubLink" type="url" value="<%= project.githubLink || '' %>"></label>
+                            <label>Live demo <input name="liveLink" type="text" value="<%= project.liveLink || '' %>"></label>
+                            <label>Technologies <input name="technologies" type="text" value="<%= technologies.join(', ') %>"></label>
+                            <label class="admin-form__wide">Description <textarea name="description" rows="3" required><%= project.description %></textarea></label>
+                            <button class="button button--secondary" type="submit">Save Project</button>
+                        </form>
+                        <form method="POST" action="/admin/projects/<%= project._id %>/delete" class="admin-delete-form">
+                            <button type="submit">Delete Project</button>
+                        </form>
+                    </details>
+                <% }) %>
+            </div>
+        </section>
+
+        <section class="admin-section" id="certificates">
+            <div class="admin-section__heading">
+                <p class="admin-kicker">Certificates</p>
+                <h2>Certificate archive</h2>
+                <p>Add certificates, change preview images/PDFs, and hide anything that should not appear publicly. Uploads should stay under <%= maxUploadMb %> MB.</p>
+            </div>
+
+            <% if (usingFallbackCertificates) { %>
+                <form class="admin-card admin-inline-action" method="POST" action="/admin/certificates/import-defaults">
+                    <p>The public certificate page is using <%= defaultCertificatesCount %> fallback certificates.</p>
+                    <button class="button button--primary" type="submit">Import Defaults For Editing</button>
+                </form>
+            <% } %>
+
+            <form class="admin-card admin-form admin-form--grid" method="POST" action="/admin/certificates" enctype="multipart/form-data">
+                <label>Title <input name="title" type="text" required></label>
+                <label>Issuer <input name="issuer" type="text"></label>
+                <label>Order <input name="order" type="number" value="999"></label>
+                <label>Preview URL/path <input name="image" type="text" placeholder="https://res.cloudinary.com/..."></label>
+                <label>Upload preview/PDF <input name="certificateImage" type="file" accept="image/*,application/pdf"></label>
+                <label>Full file URL <input name="fullImage" type="text" placeholder="Optional larger preview or PDF URL"></label>
+                <label>Upload full file <input name="certificateFullImage" type="file" accept="image/*,application/pdf"></label>
+                <label class="admin-checkbox"><input name="visible" type="checkbox" checked> Visible</label>
+                <label class="admin-form__wide">Description <textarea name="description" rows="3"></textarea></label>
+                <button class="button button--primary" type="submit">Add Certificate</button>
+            </form>
+
+            <div class="admin-list">
+                <% certificates.forEach((certificate, index) => {
+                    const certificateImage = certificate.image || '';
+                    const certificateImageIsPdf = /\.pdf($|\?|#)/i.test(certificateImage) || certificate.imageResourceType === 'raw' || certificateImage.includes('/raw/upload/');
+                %>
+                    <details class="admin-card admin-editor-card" <%= index === 0 ? 'open' : '' %>>
+                        <summary>
+                            <span>
+                                <strong><%= certificate.title %></strong>
+                                <small><%= certificate.issuer || certificate.description || 'No issuer listed' %></small>
+                            </span>
+                            <em><%= certificate.visible ? 'Visible' : 'Hidden' %></em>
+                        </summary>
+
+                        <div class="admin-item-preview">
+                            <% if (certificateImage && !certificateImageIsPdf) { %>
+                                <img src="<%= certificateImage %>" alt="<%= certificate.title %> preview" loading="lazy" decoding="async">
+                            <% } else { %>
+                                <div class="admin-preview-placeholder">PDF</div>
+                            <% } %>
+                            <p><%= certificate.description || 'No description added.' %></p>
+                        </div>
+
+                        <form class="admin-form admin-form--grid" method="POST" action="/admin/certificates/<%= certificate._id %>" enctype="multipart/form-data">
+                            <label>Title <input name="title" type="text" value="<%= certificate.title %>" required></label>
+                            <label>Issuer <input name="issuer" type="text" value="<%= certificate.issuer || '' %>"></label>
+                            <label>Order <input name="order" type="number" value="<%= certificate.order %>"></label>
+                            <label>Preview URL/path <input name="image" type="text" value="<%= certificate.image %>"></label>
+                            <label>Replace preview/PDF <input name="certificateImage" type="file" accept="image/*,application/pdf"></label>
+                            <label>Full file URL <input name="fullImage" type="text" value="<%= certificate.fullImage || '' %>"></label>
+                            <label>Replace full file <input name="certificateFullImage" type="file" accept="image/*,application/pdf"></label>
+                            <label class="admin-checkbox"><input name="visible" type="checkbox" <%= certificate.visible ? 'checked' : '' %>> Visible</label>
+                            <label class="admin-form__wide">Description <textarea name="description" rows="3"><%= certificate.description || '' %></textarea></label>
+                            <button class="button button--secondary" type="submit">Save Certificate</button>
+                        </form>
+                        <form method="POST" action="/admin/certificates/<%= certificate._id %>/delete" class="admin-delete-form">
+                            <button type="submit">Delete Certificate</button>
+                        </form>
+                    </details>
+                <% }) %>
+            </div>
+        </section>
+
+        <section class="admin-section" id="gallery">
+            <div class="admin-section__heading">
+                <p class="admin-kicker">Gallery</p>
+                <h2>Gallery images</h2>
+                <p>Upload photos to Cloudinary, or keep using existing public/image/gallery filenames. Uploads should stay under <%= maxUploadMb %> MB.</p>
+            </div>
+
+            <form class="admin-card admin-form admin-form--grid" method="POST" action="/admin/gallery" enctype="multipart/form-data">
+                <label>Upload image <input name="galleryImage" type="file" accept="image/*"></label>
+                <label>Image URL <input name="imageUrl" type="text" placeholder="https://res.cloudinary.com/..."></label>
+                <label>Local filename <input name="filename" type="text" placeholder="IMG-20250606-WA0005.jpg"></label>
+                <label>Caption <input name="caption" type="text"></label>
+                <button class="button button--primary" type="submit">Add Gallery Image</button>
+            </form>
+
+            <div class="admin-gallery-list">
+                <% if (!galleryImages.length) { %>
+                    <article class="admin-panel">
+                        <h3>No gallery images added yet</h3>
+                        <p>Add a filename from public/image/gallery to publish it on the Gallery page.</p>
+                    </article>
+                <% } %>
+                <% galleryImages.forEach((image) => {
+                    const gallerySrc = image.imageUrl || (/^https?:\/\//.test(image.filename) || String(image.filename).startsWith('/') ? image.filename : `/image/gallery/${image.filename}`);
+                %>
+                    <article class="admin-card admin-gallery-item">
+                        <img src="<%= gallerySrc %>" alt="<%= image.caption || image.filename %>" loading="lazy" decoding="async">
+                        <div>
+                            <form class="admin-form" method="POST" action="/admin/gallery/<%= image._id %>" enctype="multipart/form-data">
+                                <label>Replace image <input name="galleryImage" type="file" accept="image/*"></label>
+                                <label>Image URL <input name="imageUrl" type="text" value="<%= image.imageUrl || '' %>"></label>
+                                <input name="imagePublicId" type="hidden" value="<%= image.imagePublicId || '' %>">
+                                <input name="imageResourceType" type="hidden" value="<%= image.imageResourceType || '' %>">
+                                <label>Local filename <input name="filename" type="text" value="<%= image.filename %>" required></label>
+                                <label>Caption <input name="caption" type="text" value="<%= image.caption || '' %>"></label>
+                                <button class="button button--secondary" type="submit">Save Image</button>
+                            </form>
+                            <form method="POST" action="/admin/gallery/<%= image._id %>/delete" class="admin-delete-form">
+                                <button type="submit">Remove Image</button>
+                            </form>
+                        </div>
+                    </article>
+                <% }) %>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

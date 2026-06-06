@@ -1,155 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificates</title>
+    <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/certificates.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Datatype:wght@100..900&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
     <section class="certificates">
         <header class="hero__nav">
             <a href="/" class="hero__logo">Dipanshu!</a>
-            <button class="hero__menu-toggle" aria-label="Toggle navigation" type="button">
+            <button class="hero__menu-toggle" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false" type="button">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <nav class="hero__menu" aria-label="Primary">
+            <nav class="hero__menu" id="primary-navigation" aria-label="Primary">
                 <a href="/">Home</a>
                 <a href="/projects">Projects</a>
+                <a href="/#skills">Skills</a>
+                <a href="/resume">Resume</a>
                 <a href="/#achievements">Achievements</a>
-                <a href="/#gallery">Gallery</a>
+                <a href="/gallery">Gallery</a>
                 <a href="/certificate" class="is-active">Certificates</a>
+                <a href="/#contact">Contact</a>
             </nav>
         </header>
 
-        <div class="certificates__hero">
-            <p class="certificates__kicker">Verified Credentials</p>
-            <h1>Certificate Archive</h1>
-            <p>Workshops, conferences, badges, and AI coursework captured as milestones from my journey.</p>
-        </div>
-
-        <div class="grid">
-
-            <div class="card">
-                <img src="/assets/certificates/ieee2025.png" alt="IEEE PuneCon">
-                <div class="card__content">
-                    <h3>IEEE PuneCon 2025</h3>
-                    <p>International Conference Paper Presentation</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/ieee2025.png" data-title="IEEE PuneCon 2025">View Certificate</button>
+        <main class="certificates__content" id="main-content">
+            <div class="certificates__hero">
+                <p class="certificates__kicker">Verified Credentials</p>
+                <h1>Certificate Archive</h1>
+                <p>Workshops, conferences, badges, and AI coursework captured as milestones from my journey.</p>
             </div>
 
-            <div class="card">
-                <img src="/assets/certificates/nptel.png" alt="NPTEL">
-                <div class="card__content">
-                    <h3>NPTEL Certification</h3>
-                    <p>National Programme on Technology Enhanced Learning</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/nptel.png" data-title="NPTEL Certification">View Certificate</button>
+            <div class="grid">
+                <% if (certificates && certificates.length) { %>
+                    <% certificates.forEach((certificate) => {
+                        const imageUrl = certificate.image || '';
+                        const previewImage = certificate.fullImage || certificate.image;
+                        const imageIsPdf = /\.pdf($|\?|#)/i.test(imageUrl) || certificate.imageResourceType === 'raw' || imageUrl.includes('/raw/upload/');
+                        const previewIsPdf = /\.pdf($|\?|#)/i.test(previewImage) || certificate.fullImageResourceType === 'raw' || String(previewImage).includes('/raw/upload/');
+                    %>
+                        <div class="card">
+                            <% if (imageUrl && !imageIsPdf) { %>
+                                <img src="<%= imageUrl %>" alt="<%= certificate.title %>" loading="lazy" decoding="async">
+                            <% } else { %>
+                                <div class="certificate-pdf-preview" aria-hidden="true">
+                                    <span>PDF</span>
+                                </div>
+                            <% } %>
+                            <div class="card__content">
+                                <h3><%= certificate.title %></h3>
+                                <p><%= certificate.description %></p>
+                            </div>
+                            <button class="view-trigger" type="button" data-full="<%= previewImage %>" data-kind="<%= previewIsPdf ? 'pdf' : 'image' %>" data-title="<%= certificate.title %>"><%= previewIsPdf ? 'Open Certificate' : 'View Certificate' %></button>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <article class="card certificate-empty">
+                        <div class="card__content">
+                            <h3>Certificates are syncing.</h3>
+                            <p>The archive will appear here after certificates are added in the admin editor.</p>
+                        </div>
+                    </article>
+                <% } %>
             </div>
-
-            <div class="card">
-                <img src="/assets/certificates/BAH.jpg" alt="BAH">
-                <div class="card__content">
-                    <h3>Business Analytics & Humanities</h3>
-                    <p>Interdisciplinary Academic Program</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/BAH.jpg" data-title="Business Analytics & Humanities">View Certificate</button>
-            </div>
-
-            <div class="card">
-                <img src="/assets/certificates/icrtaids.jpg" alt="ICRTAIDS">
-                <div class="card__content">
-                    <h3>ICRTAIDS Conference</h3>
-                    <p>International Research Conference Participation</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/icrtaids.jpg" data-title="ICRTAIDS Conference">View Certificate</button>
-            </div>
-                        
-            <div class="card">
-                <img src="/assets/certificates/leetcode100days.png" alt="AI">
-                <div class="card__content">
-                    <h3>LeetCode 100 Days Badge</h3>
-                    <p>Consistency milestone on coding streaks</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/leetcode100days.png" data-title="LeetCode 100 Days Badge">View Certificate</button>
-            </div>
-
-            <div class="card">
-                <img src="/assets/certificates/internalhackthon2024.png" alt="Hackathon 2024">
-                <div class="card__content">
-                    <h3>Internal Hackathon 2024</h3>
-                    <p>Problem Solving & Team Collaboration</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/internalhackthon2024.png" data-title="Internal Hackathon 2024">View Certificate</button>
-            </div>
-
-            <div class="card">
-                <img src="/assets/certificates/internalhackthon2025.png" alt="Hackathon 2025">
-                <div class="card__content">
-                    <h3>Internal Hackathon 2025</h3>
-                    <p>Innovation & Technical Implementation</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/internalhackthon2025.png" data-title="Internal Hackathon 2025">View Certificate</button>
-            </div>
-
-            <div class="card">
-                <img src="/assets/certificates/eda.png" alt="EDA">
-                <div class="card__content">
-                    <h3>EDA Hackathon</h3>
-                    <p>Exploratory Data Analysis & Insights</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/eda.png" data-title="EDA Hackathon">View Certificate</button>
-            </div>
-
-            <div class="card">
-                <img src="/assets/certificates/webdesign.jpg" alt="Web Design">
-                <div class="card__content">
-                    <h3>Web Design Certification</h3>
-                    <p>Frontend Design & UI Development</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/webdesign.jpg" data-title="Web Design Certification">View Certificate</button>
-            </div>
-
-            <div class="card">
-                <img src="/assets/certificates/ibmAI.png" alt="IBM AI">
-                <div class="card__content">
-                    <h3>IBM Artificial Intelligence</h3>
-                    <p>AI & Data Science Foundations</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/ibmAI.png" data-title="IBM Artificial Intelligence">View Certificate</button>
-            </div>
-
-            <div class="card">
-                <img src="/assets/certificates/ai.png" alt="AI">
-                <div class="card__content">
-                    <h3>Artificial Intelligence</h3>
-                    <p>Core AI Concepts & Applications</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/ai.png" data-title="Artificial Intelligence">View Certificate</button>
-            </div>
-
-            <div class="card">
-                <img src="/assets/certificates/advencedpython.png" alt="Advanced Python">
-                <div class="card__content">
-                    <h3>Advanced Python Programming</h3>
-                    <p>Data Structures, OOP & Libraries</p>
-                </div>
-                <button class="view-trigger" type="button" data-full="/assets/certificates/advencedpython.png" data-title="Advanced Python Programming">View Certificate</button>
-            </div>
-
-        </div>
+        </main>
     </section>
 
-    <div class="certificate-modal" id="certificateModal" aria-hidden="true" role="dialog" aria-label="Certificate preview">
+    <div class="certificate-modal" id="certificateModal" aria-hidden="true" aria-modal="true" role="dialog" aria-label="Certificate preview">
         <button class="certificate-modal__close" type="button" aria-label="Close">Close</button>
         <div class="certificate-modal__frame">
             <img id="certificateModalImage" src="" alt="Certificate preview">
@@ -161,46 +87,66 @@
         document.addEventListener('DOMContentLoaded', () => {
             const menuToggle = document.querySelector('.hero__menu-toggle');
             const navMenu = document.querySelector('.hero__menu');
+            const mobileViewport = window.matchMedia('(max-width: 639px)');
             const modal = document.getElementById('certificateModal');
             const modalImage = document.getElementById('certificateModalImage');
             const modalTitle = document.getElementById('certificateModalTitle');
             const closeButton = modal.querySelector('.certificate-modal__close');
             const triggers = document.querySelectorAll('.view-trigger');
+            let lastFocusedElement = null;
 
             if (menuToggle && navMenu) {
-                const closeMenu = () => {
-                    navMenu.classList.remove('is-open');
-                    menuToggle.classList.remove('is-open');
+                const setMenuState = (isOpen) => {
+                    navMenu.classList.toggle('is-open', isOpen);
+                    menuToggle.classList.toggle('is-open', isOpen);
+                    menuToggle.setAttribute('aria-expanded', String(isOpen));
+                    document.body.classList.toggle('menu-open', isOpen && mobileViewport.matches);
                 };
 
                 menuToggle.addEventListener('click', () => {
-                    navMenu.classList.toggle('is-open');
-                    menuToggle.classList.toggle('is-open');
+                    setMenuState(!navMenu.classList.contains('is-open'));
                 });
 
                 navMenu.querySelectorAll('a').forEach((link) => {
-                    link.addEventListener('click', closeMenu);
+                    link.addEventListener('click', () => setMenuState(false));
+                });
+
+                mobileViewport.addEventListener('change', () => {
+                    if (!mobileViewport.matches) setMenuState(false);
                 });
             }
 
-            const openModal = (src, title) => {
+            const openModal = (src, title, trigger) => {
+                lastFocusedElement = trigger || document.activeElement;
                 modalImage.src = src;
                 modalImage.alt = title;
                 modalTitle.textContent = title;
                 modal.classList.add('is-open');
                 modal.setAttribute('aria-hidden', 'false');
                 document.body.classList.add('modal-open');
+                closeButton.focus();
             };
 
             const closeModal = () => {
                 modal.classList.remove('is-open');
                 modal.setAttribute('aria-hidden', 'true');
                 document.body.classList.remove('modal-open');
+                modalImage.src = '';
+
+                if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+                    lastFocusedElement.focus();
+                }
             };
 
             triggers.forEach((button) => {
                 button.addEventListener('click', () => {
-                    openModal(button.dataset.full, button.dataset.title || 'Certificate');
+                    if (button.dataset.kind === 'pdf') {
+                        const opened = window.open(button.dataset.full, '_blank', 'noopener,noreferrer');
+                        if (opened) opened.opener = null;
+                        return;
+                    }
+
+                    openModal(button.dataset.full, button.dataset.title || 'Certificate', button);
                 });
             });
 
@@ -209,11 +155,17 @@
                 if (event.target === modal) closeModal();
             });
             document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape') closeModal();
+                if (event.key === 'Escape') {
+                    closeModal();
+                    if (menuToggle && navMenu) {
+                        navMenu.classList.remove('is-open');
+                        menuToggle.classList.remove('is-open');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                        document.body.classList.remove('menu-open');
+                    }
+                }
             });
         });
     </script>
-
 </body>
-
 </html>

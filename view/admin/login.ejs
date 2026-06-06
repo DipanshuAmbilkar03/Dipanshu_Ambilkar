@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Admin Login</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin-page">
+    <main class="admin-login">
+        <section class="admin-login__card">
+            <p class="admin-kicker">Private Editor</p>
+            <h1>Portfolio Admin</h1>
+            <p>Update public portfolio content without changing the visitor-facing experience.</p>
+
+            <% if (message) { %>
+                <div class="admin-alert"><%= message %></div>
+            <% } %>
+
+            <% if (usingDefaultPassword) { %>
+                <div class="admin-alert admin-alert--warning">Using the local fallback password. Set ADMIN_PASSWORD before deploying.</div>
+            <% } %>
+
+            <% if (deployWarnings && deployWarnings.length) { %>
+                <div class="admin-alert admin-alert--warning">
+                    <strong>Deployment setup needed</strong>
+                    <ul class="admin-warning-list">
+                        <% deployWarnings.forEach((warning) => { %>
+                            <li><%= warning %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% } %>
+
+            <form method="POST" action="/admin/login" class="admin-form">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
+                <button class="button button--primary" type="submit">Open Editor</button>
+            </form>
+
+            <a class="admin-link" href="/">Back to portfolio</a>
+        </section>
+    </main>
+</body>
+</html>

@@ -7,27 +7,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Datatype:wght@100..900&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/project.css">
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="hero__nav">
         <a href="/" class="hero__logo">Dipanshu!</a>
-        <button class="hero__menu-toggle" aria-label="Toggle navigation" type="button">
+        <button class="hero__menu-toggle" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false" type="button">
             <span></span>
             <span></span>
             <span></span>
         </button>
-        <nav class="hero__menu" aria-label="Primary">
+        <nav class="hero__menu" id="primary-navigation" aria-label="Primary">
             <a href="/">Home</a>
             <a href="/projects" class="is-active">Projects</a>
+            <a href="/#skills">Skills</a>
+            <a href="/resume">Resume</a>
             <a href="/#achievements">Achievements</a>
             <a href="/gallery">Gallery</a>
             <a href="/certificate">Certificates</a>
+            <a href="/#contact">Contact</a>
         </nav>
     </header>
 
-    <section class="projects-shell">
+    <main class="projects-shell" id="main-content">
         <div class="projects-hero">
             <p class="projects-kicker">Build Portfolio</p>
             <h1>Selected Projects</h1>
@@ -35,55 +40,90 @@
         </div>
 
         <div class="projects-grid">
-        <% for(let project of projects) { %>
-            <article class="card">
-                <div>
-                    <h3><%= project.title %></h3>
-                    <div class="tags">
-                        <% project.technologies.forEach(tag => { %>
-                            <span><%= tag %></span>
-                        <% }) %>
-                    </div>
-                    <p><%= project.description %></p>
-                </div>
-                
-                <div class="links">
-                    <a href="<%= project.githubLink %>" target="_blank">
-                        Open Link ↗
-                    </a>
-                    <% if(project.liveLink) { %>
-                        <a href="https://<%= project.liveLink %>" target="_blank">
-                            Live Demo ↗
-                        </a>
-                    <% } %>
-                </div>
-            </article>
-        <% } %>
+            <% if (projects && projects.length) { %>
+                <% for (let project of projects) {
+                    const technologies = Array.isArray(project.technologies) ? project.technologies : [];
+                    const projectImage = project.image || '';
+                    const imageSrc = projectImage
+                        ? (/^https?:\/\//.test(projectImage) || projectImage.startsWith('/') ? projectImage : `/photo/${projectImage}`)
+                        : '';
+                    const liveUrl = project.liveLink
+                        ? (/^https?:\/\//.test(project.liveLink) ? project.liveLink : `https://${project.liveLink}`)
+                        : '';
+                %>
+                    <article class="card project-card">
+                        <% if (imageSrc) { %>
+                            <div class="project-card__media">
+                                <img src="<%= imageSrc %>" alt="<%= project.title %> preview" loading="lazy" decoding="async">
+                            </div>
+                        <% } else { %>
+                            <div class="project-card__media project-card__media--placeholder" aria-hidden="true">
+                                <span><%= project.title.slice(0, 2).toUpperCase() %></span>
+                            </div>
+                        <% } %>
+
+                        <div class="project-card__body">
+                            <h3><%= project.title %></h3>
+                            <% if (technologies.length) { %>
+                                <div class="tags">
+                                    <% technologies.forEach((tag) => { %>
+                                        <span><%= tag %></span>
+                                    <% }) %>
+                                </div>
+                            <% } %>
+                            <p><%= project.description %></p>
+                        </div>
+
+                        <div class="links">
+                            <% if (project.githubLink) { %>
+                                <a href="<%= project.githubLink %>" target="_blank" rel="noopener noreferrer">Open Link -></a>
+                            <% } %>
+                            <% if (liveUrl) { %>
+                                <a href="<%= liveUrl %>" target="_blank" rel="noopener noreferrer">Live Demo -></a>
+                            <% } %>
+                        </div>
+                    </article>
+                <% } %>
+            <% } else { %>
+                <article class="projects-empty">
+                    <h2>Projects are syncing.</h2>
+                    <p>The project archive will appear here after the database connection is available.</p>
+                </article>
+            <% } %>
         </div>
-    </section>
+    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const menuToggle = document.querySelector('.hero__menu-toggle');
             const navMenu = document.querySelector('.hero__menu');
+            const mobileViewport = window.matchMedia('(max-width: 639px)');
 
             if (!menuToggle || !navMenu) return;
 
-            const closeMenu = () => {
-                navMenu.classList.remove('is-open');
-                menuToggle.classList.remove('is-open');
+            const setMenuState = (isOpen) => {
+                navMenu.classList.toggle('is-open', isOpen);
+                menuToggle.classList.toggle('is-open', isOpen);
+                menuToggle.setAttribute('aria-expanded', String(isOpen));
+                document.body.classList.toggle('menu-open', isOpen && mobileViewport.matches);
             };
 
             menuToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('is-open');
-                menuToggle.classList.toggle('is-open');
+                setMenuState(!navMenu.classList.contains('is-open'));
             });
 
             navMenu.querySelectorAll('a').forEach((link) => {
-                link.addEventListener('click', closeMenu);
+                link.addEventListener('click', () => setMenuState(false));
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') setMenuState(false);
+            });
+
+            mobileViewport.addEventListener('change', () => {
+                if (!mobileViewport.matches) setMenuState(false);
             });
         });
     </script>
-
 </body>
 </html>

@@ -1,9 +1,97 @@
-<h1>Gallery</h1>
-<div class="gallery">
-  <% images.forEach(image => { %>
-    <div class="image-card">
-      <img src="/images/gallery/<%= image.filename %>" alt="<%= image.caption %>">
-      <p><%= image.caption %></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | Dipanshu Ambilkar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Datatype:wght@100..900&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/gallery.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="hero__nav">
+    <a href="/" class="hero__logo">Dipanshu!</a>
+    <button class="hero__menu-toggle" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false" type="button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="hero__menu" id="primary-navigation" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/#skills">Skills</a>
+      <a href="/resume">Resume</a>
+      <a href="/#achievements">Achievements</a>
+      <a href="/gallery" class="is-active">Gallery</a>
+      <a href="/certificate">Certificates</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="gallery-shell" id="main-content">
+    <div class="gallery-hero">
+      <p class="gallery-kicker">Visual Stories</p>
+      <h1>Gallery</h1>
+      <p>Moments from prototypes, events, travel, and the quiet parts of building things.</p>
     </div>
-  <% }); %>
-</div>
+
+    <div class="gallery-grid">
+      <% if (images && images.length) { %>
+        <% images.forEach((image, index) => { 
+          const caption = image.caption || `Gallery image ${index + 1}`;
+          const imageSrc = image.imageUrl || (/^https?:\/\//.test(image.filename) || String(image.filename).startsWith('/') ? image.filename : `/image/gallery/${image.filename}`);
+        %>
+          <article class="image-card">
+            <img src="<%= imageSrc %>" alt="<%= caption %>" loading="lazy" decoding="async">
+            <% if (image.caption) { %>
+              <p><%= image.caption %></p>
+            <% } %>
+          </article>
+        <% }); %>
+      <% } else { %>
+        <article class="gallery-empty">
+          <h2>Gallery is syncing.</h2>
+          <p>Images will appear here after the gallery database is available.</p>
+        </article>
+      <% } %>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.querySelector('.hero__menu-toggle');
+      const navMenu = document.querySelector('.hero__menu');
+      const mobileViewport = window.matchMedia('(max-width: 639px)');
+
+      if (!menuToggle || !navMenu) return;
+
+      const setMenuState = (isOpen) => {
+        navMenu.classList.toggle('is-open', isOpen);
+        menuToggle.classList.toggle('is-open', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        document.body.classList.toggle('menu-open', isOpen && mobileViewport.matches);
+      };
+
+      menuToggle.addEventListener('click', () => {
+        setMenuState(!navMenu.classList.contains('is-open'));
+      });
+
+      navMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => setMenuState(false));
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setMenuState(false);
+      });
+
+      mobileViewport.addEventListener('change', () => {
+        if (!mobileViewport.matches) setMenuState(false);
+      });
+    });
+  </script>
+</body>
+</html>

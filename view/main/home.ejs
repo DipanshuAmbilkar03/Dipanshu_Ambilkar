@@ -3,74 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to my profile</title>
-    <link href="../css/home.css" rel="stylesheet">
-    <link href="../css/home_journey.css" rel="stylesheet">
+    <title>Dipanshu Ambilkar | Portfolio</title>
+    <script>document.documentElement.classList.add('has-js');</script>
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/home.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Datatype:wght@100..900&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: black;
-            color: white;
-            font-family: 'Outfit', 'Plus Jakarta Sans', 'Arimo', 'Datatype', sans-serif;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-        }
-        .nav-item {
-            margin: 0 15px;
-            cursor: pointer;
-        }
-        .mainPage {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .main {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-        }
-        .name1, .name2 {
-            font-size: 80px;
-            font-weight: bold;
-            z-index: 1;
-
-        }
-        .image-stack {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        
-        .stack-img {
-            position: absolute;
-            width: 350px;
-            height: 350px;
-            object-fit: cover;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
-            filter: brightness(1.1) contrast(1.1);
-        } 
-    </style>
 </head>
 <body>
-    <% const heroImages = images; const rotations = [-6, -3, 0, 3];
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <% const heroImages = (images || []).slice(0, 6); const rotations = [-6, -3, 0, 3];
        const timelineEntries = [
         {
             period: 'First Year (2023-2024)',
@@ -106,47 +49,68 @@
             { title: 'IEEE PuneCon', description: 'Groundwater intelligence hardware paper selected for IEEE proceedings.', placeholder: 'IEEE PuneCon' },
             { title: 'Campus Product Design', description: '2nd place for immersive portfolio microsite and hardware storytelling.', placeholder: 'Design Sprint' }
        ];
+       const content = portfolioContent || {};
+       const skillGroups = Array.isArray(content.skillGroups) && content.skillGroups.length
+            ? content.skillGroups
+            : [
+                { title: 'Languages', skills: ['Java', 'Python', 'JavaScript', 'SQL'] },
+                { title: 'Frontend', skills: ['HTML', 'CSS', 'Responsive UI', 'Canvas', 'Accessibility'] },
+                { title: 'Backend', skills: ['Node.js', 'Express', 'MongoDB', 'REST APIs', 'Auth'] },
+                { title: 'AI & Data', skills: ['Machine Learning', 'Scikit-Learn', 'Gemini', 'OpenAI APIs', 'Data Analysis'] },
+                { title: 'Tools', skills: ['Git', 'Vercel', 'Figma', 'CATIA', 'Research Writing'] }
+            ];
+       const heroRoles = content.heroRoles || 'Developer | Data Engineer | Designer';
+       const heroLead = content.heroLead || 'I build practical AI, IoT, and full-stack products with a focus on resilient systems, clean interfaces, and measurable impact.';
       const leetCode = leetcode || null;
     %>
     <section class="hero">
         <header class="hero__nav">
-            <div class="hero__logo">Dipanshu!</div>
-            <button class="hero__menu-toggle" aria-label="Toggle navigation" type="button">
+            <a href="/" class="hero__logo">Dipanshu!</a>
+            <button class="hero__menu-toggle" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false" type="button">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <nav class="hero__menu">
+            <nav class="hero__menu" id="primary-navigation" aria-label="Primary">
                 <a href="/projects">Projects</a>
-                <a href="#achievements">Achievements</a>
-                <a href="#gallery">Gallery</a>
-                <a href="/certificate">Certificate</a>
+                <a href="#skills">Skills</a>
+                <a href="/resume" target="_blank" rel="noopener noreferrer">Resume</a>
+                <a href="#journey">Journey</a>
+                <a href="/gallery">Gallery</a>
+                <a href="/certificate">Certificates</a>
+                <a href="#contact">Contact</a>
             </nav>
         </header>
 
-        <div class="hero__content">
+        <div class="hero__content" id="main-content">
             <div class="hero__text">
-                <p class="hero__eyebrow">Developer | Data Engineer | Designer</p>
+                <p class="hero__eyebrow"><%= heroRoles %></p>
                 <h1 class="hero__title hero__title--compact">
                     <span class="hero__title-line">Hi,</span>
-                    <span class="hero__title-line">I'am <span class="hero__title-accent">Dipanshu Ambilkar</span></span>
+                    <span class="hero__title-line">I'm <span class="hero__title-accent">Dipanshu Ambilkar</span></span>
                 </h1>
+                <p class="hero__lead"><%= heroLead %></p>
+
+                <div class="hero__actions" aria-label="Primary calls to action">
+                    <a class="button button--primary" href="/projects">View Projects</a>
+                    <a class="button button--secondary" href="#contact">Contact Me</a>
+                </div>
 
                 <div class="hero__socials">
                     <a class="hero__social-link" href="https://github.com/dipanshuAmbilkar03/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="GitHub logo">
+                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="" width="22" height="22" decoding="async">
                     </a>
                     <a class="hero__social-link" href="https://www.linkedin.com/in/dipanshuambilkar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn logo">
+                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="" width="22" height="22" decoding="async">
                     </a>
                     <a class="hero__social-link" href="https://leetcode.com/u/dipanshu0312/" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
-                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/leetcode.svg" alt="LeetCode logo">
+                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/leetcode.svg" alt="" width="22" height="22" decoding="async">
                     </a>
                     <a class="hero__social-link" href="https://www.geeksforgeeks.org/profile/dipanshuaq2tc" target="_blank" rel="noopener noreferrer" aria-label="GeeksforGeeks">
-                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/geeksforgeeks.svg" alt="GeeksforGeeks logo">
+                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/geeksforgeeks.svg" alt="" width="22" height="22" decoding="async">
                     </a>
                     <a class="hero__social-link" href="https://www.kaggle.com/onyxstrangler" target="_blank" rel="noopener noreferrer" aria-label="Kaggle">
-                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kaggle.svg" alt="Kaggle logo">
+                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kaggle.svg" alt="" width="22" height="22" decoding="async">
                     </a>
                 </div>
             </div>
@@ -155,7 +119,7 @@
                 <% heroImages.forEach((img, index) => { %>
                     <div class="card-layer" data-rotate="<%= rotations[index % rotations.length] %>">
                         <div class="card-inner">
-                            <img src="/homeImages/<%= img %>" alt="Portfolio visual <%= index + 1 %>" class="stack-img" />
+                            <img src="/homeImages/<%= img %>" alt="Portfolio visual <%= index + 1 %>" class="stack-img" loading="<%= index === 0 ? 'eager' : 'lazy' %>" decoding="async" />
                             <div class="card-overlay"></div>
                         </div>
                     </div>
@@ -185,7 +149,7 @@
                     <h3 id="summary-achievements">Achievements</h3>
                     <p>International podiums, IEEE papers, SIH prototypes, and on-campus design victories.</p>
                 </div>
-                <span class="summary-card__link">Spotlight reel</span>
+                <a href="#hackathons" class="summary-card__link">Spotlight reel -></a>
             </article>
             <article class="summary-card" id="gallery" aria-labelledby="summary-gallery" data-animate>
                 <div class="summary-card__body">
@@ -193,7 +157,7 @@
                     <h3 id="summary-gallery">Visual Stories</h3>
                     <p>A living moodboard of prototypes, travel captures, and process shots.</p>
                 </div>
-                <span class="summary-card__link">Curated frames</span>
+                <a href="/gallery" class="summary-card__link">Curated frames -></a>
             </article>
             <article class="summary-card" aria-labelledby="summary-certificate" data-animate>
                 <div class="summary-card__body">
@@ -203,6 +167,26 @@
                 </div>
                 <a href="/certificate" class="summary-card__link">View archive -></a>
             </article>
+        </div>
+    </section>
+
+    <section class="skills" id="skills">
+        <div class="section-heading">
+            <p class="section-kicker">Skills</p>
+            <h2>Stack for practical product work</h2>
+            <p>Core tools I use to move from idea to tested interface, API, model, or hardware-backed prototype.</p>
+        </div>
+        <div class="skills__layout">
+            <% skillGroups.forEach((group) => { %>
+                <article class="skill-card" data-animate>
+                    <h3><%= group.title %></h3>
+                    <div class="skill-card__badges">
+                        <% group.skills.forEach((skill) => { %>
+                            <span><%= skill %></span>
+                        <% }) %>
+                    </div>
+                </article>
+            <% }) %>
         </div>
     </section>
 
@@ -352,7 +336,7 @@
                         <div class="leetcode-badges">
                             <% leetCode.badges.forEach((badge) => { %>
                                 <div class="leetcode-badge-item">
-                                    <img src="<%= badge.icon %>" alt="<%= badge.name %>">
+                                    <img src="<%= badge.icon %>" alt="<%= badge.name %>" loading="lazy" decoding="async">
                                     <div>
                                         <h4><%= badge.name %></h4>
                                         <p><%= badge.createdAt %></p>
@@ -395,126 +379,162 @@
             <% }) %>
         </div>
     </section>
+
+    <section class="contact" id="contact">
+        <div class="section-heading">
+            <p class="section-kicker">Contact</p>
+            <h2>Let us build something useful</h2>
+            <p>Open to internships, product collaborations, AI systems, and full-stack engineering work.</p>
+        </div>
+        <div class="contact__layout">
+            <div class="contact__panel" data-animate>
+                <p class="contact__eyebrow">Reach out</p>
+                <h3>Fastest replies on LinkedIn and GitHub.</h3>
+                <p>Share the problem, expected timeline, and any useful links. I will bring the architecture brain and the UI polish.</p>
+                <div class="contact__links" aria-label="Contact links">
+                    <a href="https://www.linkedin.com/in/dipanshuambilkar/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://github.com/dipanshuAmbilkar03/" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://leetcode.com/u/dipanshu0312/" target="_blank" rel="noopener noreferrer">LeetCode</a>
+                </div>
+            </div>
+
+            <form class="contact__form" data-animate>
+                <label for="contactName">Name</label>
+                <input id="contactName" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+
+                <label for="contactEmail">Email</label>
+                <input id="contactEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+
+                <label for="contactMessage">Message</label>
+                <textarea id="contactMessage" name="message" rows="5" placeholder="Tell me what you want to build" required></textarea>
+
+                <button class="button button--primary" type="submit">Prepare Message</button>
+                <p class="contact__form-note" aria-live="polite"></p>
+            </form>
+        </div>
+    </section>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        document.documentElement.classList.add('has-js');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const mobileViewport = window.matchMedia('(max-width: 639px)');
         const menuToggle = document.querySelector('.hero__menu-toggle');
         const navMenu = document.querySelector('.hero__menu');
 
         if (menuToggle && navMenu) {
-            const closeMenu = () => {
-                navMenu.classList.remove('is-open');
-                menuToggle.classList.remove('is-open');
+            const setMenuState = (isOpen) => {
+                navMenu.classList.toggle('is-open', isOpen);
+                menuToggle.classList.toggle('is-open', isOpen);
+                menuToggle.setAttribute('aria-expanded', String(isOpen));
+                document.body.classList.toggle('menu-open', isOpen && mobileViewport.matches);
             };
 
             menuToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('is-open');
-                menuToggle.classList.toggle('is-open');
+                setMenuState(!navMenu.classList.contains('is-open'));
             });
 
             navMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', closeMenu);
+                link.addEventListener('click', () => setMenuState(false));
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') setMenuState(false);
+            });
+
+            mobileViewport.addEventListener('change', () => {
+                if (!mobileViewport.matches) setMenuState(false);
             });
         }
 
-        const heroCards = document.querySelectorAll('.card-layer');
-        const cardQueue = Array.from(heroCards);
-        const swapDuration = 1.15;
-        const cycleDelay = 3.8;
-        const slotTemplate = [
-            { x: 80, y: -18, scale: 1 },
-            { x: 42, y: -2, scale: 0.97 },
-            { x: 4, y: 22, scale: 0.94 },
-            { x: -30, y: 42, scale: 0.9 },
-            { x: -58, y: 60, scale: 0.87 }
+        const contactForm = document.querySelector('.contact__form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const formData = new FormData(contactForm);
+                const name = formData.get('name') || 'Portfolio visitor';
+                const email = formData.get('email') || '';
+                const message = formData.get('message') || '';
+                const note = contactForm.querySelector('.contact__form-note');
+                const subject = `Portfolio inquiry from ${name}`;
+                const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+
+                if (note) note.textContent = 'Opening your email app with the message ready.';
+                window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            });
+        }
+
+        const cardQueue = Array.from(document.querySelectorAll('.card-layer'));
+        const desktopSlots = [
+            { x: 72, y: -12, scale: 1 },
+            { x: 34, y: 8, scale: 0.96 },
+            { x: 0, y: 30, scale: 0.92 },
+            { x: -28, y: 48, scale: 0.88 },
+            { x: -50, y: 64, scale: 0.84 },
+            { x: -66, y: 78, scale: 0.8 }
         ];
+        const mobileSlots = [
+            { x: 18, y: 0, scale: 1 },
+            { x: 0, y: 18, scale: 0.94 },
+            { x: -15, y: 34, scale: 0.88 },
+            { x: -24, y: 44, scale: 0.82 }
+        ];
+        let stackTimer;
 
-        const getSlotValues = (slotIndex) => {
-            const pattern = slotTemplate[Math.min(slotIndex, slotTemplate.length - 1)];
-            const overflow = Math.max(0, slotIndex - (slotTemplate.length - 1));
+        const getStackSlot = (index) => {
+            const slots = mobileViewport.matches ? mobileSlots : desktopSlots;
+            const slot = slots[Math.min(index, slots.length - 1)];
+            const overflow = Math.max(0, index - (slots.length - 1));
             return {
-                x: pattern.x - overflow * 4,
-                y: pattern.y + overflow * 10,
-                scale: Math.max(0.82, pattern.scale - overflow * 0.02)
+                x: slot.x - overflow * 3,
+                y: slot.y + overflow * 8,
+                scale: Math.max(0.74, slot.scale - overflow * 0.03)
             };
         };
 
-        cardQueue.forEach((card, index) => {
-            const rotation = parseFloat(card.dataset.rotate) || 0;
-            const slot = getSlotValues(index);
-
-            card.style.zIndex = cardQueue.length - index;
-
-            gsap.set(card, {
-                x: 300 + slot.x,
-                y: -300 + slot.y,
-                opacity: 0,
-                scale: 0.8,
-                rotate: rotation
+        const updateStack = () => {
+            cardQueue.forEach((card, index) => {
+                const slot = getStackSlot(index);
+                const rotation = parseFloat(card.dataset.rotate) || 0;
+                card.classList.toggle('card-layer--active', index === 0);
+                card.style.setProperty('--x', `${slot.x}px`);
+                card.style.setProperty('--y', `${slot.y}px`);
+                card.style.setProperty('--scale', slot.scale);
+                card.style.setProperty('--rotate', `${rotation}deg`);
+                card.style.setProperty('--z', cardQueue.length - index);
             });
+        };
 
-            gsap.to(card, {
-                keyframes: [
-                    { x: 240 + slot.x, y: -240 + slot.y, opacity: 0.35, scale: 0.86 },
-                    { x: 180 + slot.x, y: -180 + slot.y, opacity: 0.6, scale: 0.92 },
-                    { x: 120 + slot.x, y: -120 + slot.y, opacity: 0.8, scale: 0.97 },
-                    { x: 60 + slot.x, y: -60 + slot.y, opacity: 0.95, scale: 1 },
-                    { x: slot.x, y: slot.y, opacity: 1, scale: slot.scale }
-                ],
-                duration: 2,
-                ease: 'steps(5)',
-                delay: index * 0.25,
-                onComplete: () => {
-                    card.style.zIndex = cardQueue.length - index;
-                    if (index === 0) {
-                        card.classList.add('card-layer--active');
-                    }
-                }
-            });
-        });
+        const startStackLoop = () => {
+            clearInterval(stackTimer);
+            updateStack();
 
-        const startSwapLoop = (queue) => {
-            if (!queue.length) return;
+            if (prefersReducedMotion.matches || mobileViewport.matches || cardQueue.length <= 1) return;
 
-            const updateStack = (instant = false) => {
-                queue.forEach((card, idx) => {
-                    const slot = getSlotValues(idx);
-                    card.classList.toggle('card-layer--active', idx === 0);
-                    card.style.zIndex = queue.length - idx;
-                    gsap.to(card, {
-                        x: slot.x,
-                        y: slot.y,
-                        scale: slot.scale,
-                        duration: instant ? 0 : swapDuration,
-                        ease: 'power2.inOut'
-                    });
-                });
-            };
-
-            updateStack(true);
-
-            const cycle = () => {
-                queue.push(queue.shift());
+            stackTimer = setInterval(() => {
+                cardQueue.push(cardQueue.shift());
                 updateStack();
-                gsap.delayedCall(cycleDelay, cycle);
-            };
-
-            gsap.delayedCall(cycleDelay, cycle);
+            }, 4200);
         };
 
-        const introDelay = (cardQueue.length - 1) * 0.25 + 2.2;
-        gsap.delayedCall(introDelay, () => startSwapLoop(cardQueue));
+        startStackLoop();
+        prefersReducedMotion.addEventListener('change', startStackLoop);
+        mobileViewport.addEventListener('change', startStackLoop);
 
         const animatedNodes = document.querySelectorAll('[data-animate]');
-        const animateObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    animateObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.35 });
+        if (prefersReducedMotion.matches || !('IntersectionObserver' in window)) {
+            animatedNodes.forEach(node => node.classList.add('is-visible'));
+        } else {
+            const animateObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        animateObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: mobileViewport.matches ? 0.16 : 0.32 });
 
-        animatedNodes.forEach(node => animateObserver.observe(node));
+            animatedNodes.forEach(node => animateObserver.observe(node));
+        }
 
         const timelineElement = document.querySelector('.timeline');
         const trackFill = document.querySelector('.timeline__track-fill');
@@ -529,7 +549,7 @@
         };
 
         updateTimelineFill();
-        window.addEventListener('scroll', updateTimelineFill);
+        window.addEventListener('scroll', updateTimelineFill, { passive: true });
 
         const initPerformanceChart = () => {
             const canvas = document.getElementById('performanceChart');
@@ -697,6 +717,11 @@
                 resizeCanvas();
                 render(animationStarted ? 1 : 0);
             });
+
+            if (prefersReducedMotion.matches) {
+                render(1);
+                return;
+            }
 
             const chartObserver = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -909,6 +934,11 @@
                 resizeCanvas();
                 render(animationStarted ? 1 : 0);
             });
+
+            if (prefersReducedMotion.matches) {
+                render(1);
+                return;
+            }
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {

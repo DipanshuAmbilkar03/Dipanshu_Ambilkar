@@ -5,6 +5,18 @@ const galleryImageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    imageUrl: {
+        type: String,
+        default: ''
+    },
+    imagePublicId: {
+        type: String,
+        default: ''
+    },
+    imageResourceType: {
+        type: String,
+        default: ''
+    },
     caption: {
         type: String,
         default: ''

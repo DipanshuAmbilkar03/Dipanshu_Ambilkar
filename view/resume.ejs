@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Dipanshu Ambilkar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Datatype:wght@100..900&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/resume.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="hero__nav">
+        <a href="/" class="hero__logo">Dipanshu!</a>
+        <button class="hero__menu-toggle" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false" type="button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="hero__menu" id="primary-navigation" aria-label="Primary">
+            <a href="/">Home</a>
+            <a href="/projects">Projects</a>
+            <a href="/#skills">Skills</a>
+            <a href="/resume" class="is-active">Resume</a>
+            <a href="/#achievements">Achievements</a>
+            <a href="/gallery">Gallery</a>
+            <a href="/certificate">Certificates</a>
+            <a href="/#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main class="resume-shell" id="main-content">
+        <section class="resume-top" aria-labelledby="resume-title">
+            <div>
+                <p class="resume-kicker">Document</p>
+                <h1 id="resume-title">Resume</h1>
+                <p><%= resumeLabel %></p>
+            </div>
+
+            <a class="button button--secondary" href="/resume/file" target="_blank" rel="noopener noreferrer">Open PDF</a>
+        </section>
+
+        <section class="resume-viewer" aria-label="Resume preview">
+            <object class="resume-frame" data="/resume/file#toolbar=1&navpanes=0" type="application/pdf">
+                <div class="resume-fallback">
+                    <p>Resume preview is unavailable in this browser.</p>
+                    <a class="button button--primary" href="/resume/file" target="_blank" rel="noopener noreferrer">Open PDF</a>
+                </div>
+            </object>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.hero__menu-toggle');
+            const navMenu = document.querySelector('.hero__menu');
+            const mobileViewport = window.matchMedia('(max-width: 639px)');
+
+            if (!menuToggle || !navMenu) return;
+
+            const setMenuState = (isOpen) => {
+                navMenu.classList.toggle('is-open', isOpen);
+                menuToggle.classList.toggle('is-open', isOpen);
+                menuToggle.setAttribute('aria-expanded', String(isOpen));
+                document.body.classList.toggle('menu-open', isOpen && mobileViewport.matches);
+            };
+
+            menuToggle.addEventListener('click', () => {
+                setMenuState(!navMenu.classList.contains('is-open'));
+            });
+
+            navMenu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => setMenuState(false));
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') setMenuState(false);
+            });
+
+            mobileViewport.addEventListener('change', () => {
+                if (!mobileViewport.matches) setMenuState(false);
+            });
+        });
+    </script>
+</body>
+</html>
