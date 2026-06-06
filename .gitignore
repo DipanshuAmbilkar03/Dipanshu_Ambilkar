@@ -6,7 +6,6 @@ prompt.md
 dipanshu/
 node_modules/
 public/uploads/
+public/image/gallery/
 .env.example
-F:\profile\.env.example
 DEPLOYMENT.md
-.env.example
