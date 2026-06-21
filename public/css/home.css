@@ -347,6 +347,7 @@
 }
 
 .leetcode {
+  scroll-margin-top: 5.5rem;
   background:
     radial-gradient(circle at 15% 20%, rgba(45, 212, 191, 0.08), transparent 28rem),
     radial-gradient(circle at 90% 70%, rgba(244, 63, 94, 0.08), transparent 26rem),
