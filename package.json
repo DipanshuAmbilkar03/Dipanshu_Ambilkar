@@ -8,7 +8,7 @@
     "seed:projects": "node init/index.js"
   },
   "engines": {
-    "node": "20.x"
+    "node": "26.x"
   },
   "dependencies": {
     "cloudinary": "^2.10.0",
