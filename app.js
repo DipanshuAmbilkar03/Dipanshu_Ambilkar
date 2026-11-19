@@ -1232,11 +1232,37 @@ app.get('/projects', async (req, res) => {
     }
 });
 
+const galleryFallback = () => {
+    const imageDir = path.join(__dirname, 'init/homeImages');
+    try {
+        return fs.readdirSync(imageDir)
+            .filter((file) => /\.(jpe?g|png|webp|avif)$/i.test(file))
+            .sort()
+            .map((file, index) => ({
+                filename: file,
+                imageUrl: `/homeImages/${file}`,
+                caption: `Field notes · ${String(index + 1).padStart(2, '0')}`
+            }));
+    } catch (err) {
+        return [];
+    }
+};
+
 app.get('/gallery', async (req, res) => {
     try {
-        await connectDB();
-        const images = await GalleryImage.find({}).sort({ uploadedAt: -1 });
-        res.render('gallery.ejs', { images });
+        let images = [];
+        try {
+            await connectDB();
+            images = await GalleryImage.find({}).sort({ uploadedAt: -1 });
+        } catch (err) {
+            images = [];
+        }
+
+        if (!images.length) {
+            images = galleryFallback();
+        }
+
+        res.render('gallery.ejs', { images, fallback: !images.length || images.every((image) => image.imageUrl && image.imageUrl.startsWith('/homeImages/')) });
     } catch (err) {
         res.status(500).send('Error loading gallery');
     }

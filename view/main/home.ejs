@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dipanshu Ambilkar | Portfolio</title>
+    <meta name="description" content="Dipanshu Ambilkar builds practical AI, IoT, and full-stack products. Explore projects, research, certificates, and the journey so far.">
+    <meta name="theme-color" content="#0b0a0d">
     <script>document.documentElement.classList.add('has-js');</script>
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/home.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Datatype:wght@100..900&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -41,8 +43,9 @@
             { label: 'Sem 2', value: 9.24 },
             { label: 'Sem 3', value: 9.45 },
             { label: 'Sem 4', value: 9.36 },
-            { label: 'Sem 5', value: 9.86 }
-       ];
+            { label: 'Sem 5', value: 9.86 },
+            { label: 'Sem 6', value: 9.71 }
+        ];
        const hackathons = [
             { title: 'Smart India Hackathon', description: 'Urban water distress alerting prototype (DWLR) shortlisted for national finals.', placeholder: 'SIH Badge' },
             { title: 'ICRTAIDS 2025', description: 'Presented research on RFID-enabled IoT surveillance stack; secured 2nd prize.', placeholder: 'ICRTAIDS' },
@@ -62,10 +65,19 @@
        const heroRoles = content.heroRoles || 'Developer | Data Engineer | Designer';
        const heroLead = content.heroLead || 'I build practical AI, IoT, and full-stack products with a focus on resilient systems, clean interfaces, and measurable impact.';
       const leetCode = leetcode || null;
+      const latestSgpa = performanceSemesters[performanceSemesters.length - 1].value.toFixed(2);
+      const totalSolved = leetCode && leetCode.totalSolved ? leetCode.totalSolved : null;
+      const currentStreak = leetCode && leetCode.currentStreak ? leetCode.currentStreak : null;
+      const topPercent = leetCode && leetCode.contest && leetCode.contest.topPercentage
+            ? Number(leetCode.contest.topPercentage).toFixed(1)
+            : null;
     %>
     <section class="hero">
         <header class="hero__nav">
-            <a href="/" class="hero__logo">Dipanshu!</a>
+            <a href="/" class="hero__logo" aria-label="Dipanshu Ambilkar home">
+                <span class="hero__logo-mark" aria-hidden="true">DA</span>
+                <span class="hero__logo-text">Dipanshu <em>Ambilkar</em></span>
+            </a>
             <button class="hero__menu-toggle" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false" type="button">
                 <span></span>
                 <span></span>
@@ -79,16 +91,17 @@
                 <a href="#journey">Journey</a>
                 <a href="/gallery">Gallery</a>
                 <a href="/certificate">Certificates</a>
-                <a href="#contact">Contact</a>
+                <a href="#contact" class="nav-cta">Contact</a>
             </nav>
         </header>
 
         <div class="hero__content" id="main-content">
             <div class="hero__text">
-                <p class="hero__eyebrow"><%= heroRoles %></p>
-                <h1 class="hero__title hero__title--compact">
-                    <span class="hero__title-line">Hi,</span>
-                    <span class="hero__title-line">I'm <span class="hero__title-accent">Dipanshu Ambilkar</span></span>
+                <p class="hero__eyebrow"><span class="status-dot" aria-hidden="true"></span><%= heroRoles %></p>
+                <h1 class="hero__title">
+                    <span class="hero__title-intro">Hi, I'm</span>
+                    <span class="hero__title-line">Dipanshu</span>
+                    <span class="hero__title-line hero__title-accent">Ambilkar<span class="hero__title-dot">.</span></span>
                 </h1>
                 <p class="hero__lead"><%= heroLead %></p>
 
@@ -97,26 +110,29 @@
                     <a class="button button--secondary" href="#contact">Contact Me</a>
                 </div>
 
-                <div class="hero__socials">
-                    <a class="hero__social-link" href="https://github.com/dipanshuAmbilkar03/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="" width="22" height="22" decoding="async">
-                    </a>
-                    <a class="hero__social-link" href="https://www.linkedin.com/in/dipanshuambilkar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="" width="22" height="22" decoding="async">
-                    </a>
-                    <a class="hero__social-link" href="https://leetcode.com/u/dipanshu0312/" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
-                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/leetcode.svg" alt="" width="22" height="22" decoding="async">
-                    </a>
-                    <a class="hero__social-link" href="https://www.geeksforgeeks.org/profile/dipanshuaq2tc" target="_blank" rel="noopener noreferrer" aria-label="GeeksforGeeks">
-                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/geeksforgeeks.svg" alt="" width="22" height="22" decoding="async">
-                    </a>
-                    <a class="hero__social-link" href="https://www.kaggle.com/onyxstrangler" target="_blank" rel="noopener noreferrer" aria-label="Kaggle">
-                        <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kaggle.svg" alt="" width="22" height="22" decoding="async">
-                    </a>
+                <div class="hero__meta-row">
+                    <div class="hero__socials">
+                        <a class="hero__social-link" href="https://github.com/dipanshuAmbilkar03/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                            <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="" width="19" height="19" decoding="async">
+                        </a>
+                        <a class="hero__social-link" href="https://www.linkedin.com/in/dipanshuambilkar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="" width="19" height="19" decoding="async">
+                        </a>
+                        <a class="hero__social-link" href="https://leetcode.com/u/dipanshu0312/" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
+                            <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/leetcode.svg" alt="" width="19" height="19" decoding="async">
+                        </a>
+                        <a class="hero__social-link" href="https://www.geeksforgeeks.org/profile/dipanshuaq2tc" target="_blank" rel="noopener noreferrer" aria-label="GeeksforGeeks">
+                            <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/geeksforgeeks.svg" alt="" width="19" height="19" decoding="async">
+                        </a>
+                        <a class="hero__social-link" href="https://www.kaggle.com/onyxstrangler" target="_blank" rel="noopener noreferrer" aria-label="Kaggle">
+                            <img class="hero__social-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kaggle.svg" alt="" width="19" height="19" decoding="async">
+                        </a>
+                    </div>
+                    <span class="hero__location">Pune, India</span>
                 </div>
             </div>
 
-            <div class="hero__media">
+            <div class="hero__media" aria-label="Photo collection from competitions and campus">
                 <% heroImages.forEach((img, index) => { %>
                     <div class="card-layer" data-rotate="<%= rotations[index % rotations.length] %>">
                         <div class="card-inner">
@@ -125,6 +141,47 @@
                         </div>
                     </div>
                 <% }) %>
+                <div class="hero__chip"><span class="status-dot" aria-hidden="true"></span> Open to internships · 2026</div>
+            </div>
+        </div>
+
+        <div class="hero-stats" aria-label="Quick highlights">
+            <div class="hero-stat">
+                <strong><%= latestSgpa %></strong>
+                <span>Latest SGPA</span>
+            </div>
+            <div class="hero-stat">
+                <strong><%= totalSolved || '580+' %></strong>
+                <span>LeetCode solved</span>
+            </div>
+            <div class="hero-stat">
+                <strong><%= currentStreak || '300+' %></strong>
+                <span>Day streak</span>
+            </div>
+            <div class="hero-stat">
+                <strong><%= topPercent ? `Top ${topPercent}%` : 'Top 10%' %></strong>
+                <span>Contest standing</span>
+            </div>
+        </div>
+
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee__track">
+                <div class="marquee__group">
+                    <span>Full-stack engineering</span>
+                    <span>AI integrations</span>
+                    <span>IoT systems</span>
+                    <span>Data analysis</span>
+                    <span>Product design</span>
+                    <span>Research writing</span>
+                </div>
+                <div class="marquee__group">
+                    <span>Full-stack engineering</span>
+                    <span>AI integrations</span>
+                    <span>IoT systems</span>
+                    <span>Data analysis</span>
+                    <span>Product design</span>
+                    <span>Research writing</span>
+                </div>
             </div>
         </div>
     </section>
@@ -142,7 +199,7 @@
                     <h3 id="summary-projects">Projects</h3>
                     <p>DWLR alerting stack, MERN dashboards, IoT control centers, and AI copilots engineered end-to-end.</p>
                 </div>
-                <a href="/projects" class="summary-card__link">See case studies -></a>
+                <a href="/projects" class="summary-card__link">See case studies</a>
             </article>
             <article class="summary-card" id="achievements" aria-labelledby="summary-achievements" data-animate>
                 <div class="summary-card__body">
@@ -150,7 +207,7 @@
                     <h3 id="summary-achievements">Achievements</h3>
                     <p>International podiums, IEEE papers, SIH prototypes, and on-campus design victories.</p>
                 </div>
-                <a href="#hackathons" class="summary-card__link">Spotlight reel -></a>
+                <a href="#hackathons" class="summary-card__link">Spotlight reel</a>
             </article>
             <article class="summary-card" id="gallery" aria-labelledby="summary-gallery" data-animate>
                 <div class="summary-card__body">
@@ -158,7 +215,7 @@
                     <h3 id="summary-gallery">Visual Stories</h3>
                     <p>A living moodboard of prototypes, travel captures, and process shots.</p>
                 </div>
-                <a href="/gallery" class="summary-card__link">Curated frames -></a>
+                <a href="/gallery" class="summary-card__link">Curated frames</a>
             </article>
             <article class="summary-card" aria-labelledby="summary-certificate" data-animate>
                 <div class="summary-card__body">
@@ -166,7 +223,7 @@
                     <h3 id="summary-certificate">Certificates</h3>
                     <p>Verified coursework, workshops, and research recognitions.</p>
                 </div>
-                <a href="/certificate" class="summary-card__link">View archive -></a>
+                <a href="/certificate" class="summary-card__link">View archive</a>
             </article>
         </div>
     </section>
@@ -250,7 +307,7 @@
                     <h3><%= leetCode.totalSolved %> problems solved</h3>
                     <p>Acceptance rate: <strong><%= leetCode.acceptance %>%</strong></p>
                     <p>Global rank: <strong>#<%= Number(leetCode.ranking || 0).toLocaleString() %></strong></p>
-                    <a href="<%= leetCode.profileUrl %>" target="_blank" rel="noopener noreferrer">Open LeetCode Profile -></a>
+                    <a href="<%= leetCode.profileUrl %>" target="_blank" rel="noopener noreferrer">Open LeetCode Profile</a>
                 </article>
 
                 <article class="leetcode-card leetcode-card--contest" data-animate>
@@ -355,7 +412,7 @@
                 <p class="leetcode-card__kicker">LeetCode sync paused</p>
                 <h3>Could not fetch live profile stats right now.</h3>
                 <p>The section is ready and will auto-populate on the next successful refresh.</p>
-                <a href="https://leetcode.com/u/dipanshu0312/" target="_blank" rel="noopener noreferrer">Visit profile -></a>
+                <a href="https://leetcode.com/u/dipanshu0312/" target="_blank" rel="noopener noreferrer">Visit profile</a>
             </article>
         <% } %>
     </section>
@@ -396,6 +453,7 @@
                     <a href="https://www.linkedin.com/in/dipanshuambilkar/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                     <a href="https://github.com/dipanshuAmbilkar03/" target="_blank" rel="noopener noreferrer">GitHub</a>
                     <a href="https://leetcode.com/u/dipanshu0312/" target="_blank" rel="noopener noreferrer">LeetCode</a>
+                    <a href="mailto:dipanshuambilkar@gmail.com">Email</a>
                 </div>
             </div>
 
@@ -410,10 +468,41 @@
                 <textarea id="contactMessage" name="message" rows="5" placeholder="Tell me what you want to build" required></textarea>
 
                 <button class="button button--primary" type="submit">Prepare Message</button>
-                <p class="contact__form-note" aria-live="polite"></p>
+                <p class="contact__form-note" aria-live="polite">Opens your email app with the message ready to send.</p>
             </form>
         </div>
     </section>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__brand">
+                <a href="/" class="hero__logo" aria-label="Dipanshu Ambilkar home">
+                    <span class="hero__logo-mark" aria-hidden="true">DA</span>
+                    <span class="hero__logo-text">Dipanshu <em>Ambilkar</em></span>
+                </a>
+                <p>Full-stack, AI, and IoT work built with curiosity, research, and a bias for shipping.</p>
+                <div class="site-footer__socials">
+                    <a href="https://github.com/dipanshuAmbilkar03/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GH</a>
+                    <a href="https://www.linkedin.com/in/dipanshuambilkar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">IN</a>
+                    <a href="https://leetcode.com/u/dipanshu0312/" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">LC</a>
+                    <a href="https://www.kaggle.com/onyxstrangler" target="_blank" rel="noopener noreferrer" aria-label="Kaggle">KG</a>
+                </div>
+            </div>
+            <nav class="site-footer__nav" aria-label="Footer">
+                <a href="/projects">Projects</a>
+                <a href="/#skills">Skills</a>
+                <a href="/#journey">Journey</a>
+                <a href="/resume">Resume</a>
+                <a href="/gallery">Gallery</a>
+                <a href="/certificate">Certificates</a>
+            </nav>
+            <div class="site-footer__meta">
+                <a href="mailto:dipanshuambilkar@gmail.com">dipanshuambilkar@gmail.com</a>
+                <span>Pune, Maharashtra · India</span>
+                <p>© 2026 Dipanshu Ambilkar<br>Designed &amp; built with intent.</p>
+            </div>
+        </div>
+    </footer>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.classList.add('has-js');
@@ -466,12 +555,12 @@
 
         const cardQueue = Array.from(document.querySelectorAll('.card-layer'));
         const desktopSlots = [
-            { x: 72, y: -12, scale: 1 },
-            { x: 34, y: 8, scale: 0.96 },
-            { x: 0, y: 30, scale: 0.92 },
-            { x: -28, y: 48, scale: 0.88 },
-            { x: -50, y: 64, scale: 0.84 },
-            { x: -66, y: 78, scale: 0.8 }
+            { x: 54, y: -8, scale: 1 },
+            { x: 28, y: 16, scale: 0.96 },
+            { x: 2, y: 36, scale: 0.92 },
+            { x: -18, y: 54, scale: 0.88 },
+            { x: -36, y: 70, scale: 0.84 },
+            { x: -50, y: 84, scale: 0.8 }
         ];
         const mobileSlots = [
             { x: 18, y: 0, scale: 1 },
@@ -601,7 +690,9 @@
             };
 
             const drawGrid = ({ padding, chartWidth, chartHeight }) => {
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+                ctx.shadowBlur = 0;
+                ctx.shadowColor = 'transparent';
+                ctx.strokeStyle = 'rgba(244, 239, 231, 0.08)';
                 ctx.lineWidth = 1;
                 const lines = 4;
                 for (let i = 0; i <= lines; i += 1) {
@@ -613,22 +704,8 @@
                 }
             };
 
-            const drawLine = (progress, dims) => {
-                const { padding } = dims;
-                const bounds = canvas.getBoundingClientRect();
-                ctx.save();
+            const buildLinePath = () => {
                 ctx.beginPath();
-                ctx.rect(0, 0, padding.left + (bounds.width - padding.left) * progress + 8, bounds.height + 8);
-                ctx.clip();
-
-                ctx.beginPath();
-                ctx.lineWidth = 3;
-                ctx.lineJoin = 'round';
-                ctx.lineCap = 'round';
-                ctx.strokeStyle = '#ffffff';
-                ctx.shadowColor = 'rgba(255, 255, 255, 0.4)';
-                ctx.shadowBlur = 12;
-
                 points.forEach((point, index) => {
                     if (index === 0) {
                         ctx.moveTo(point.x, point.y);
@@ -643,6 +720,36 @@
                 const last = points[points.length - 1];
                 const prev = points[points.length - 2];
                 ctx.quadraticCurveTo(prev.x, prev.y, last.x, last.y);
+            };
+
+            const drawLine = (progress, dims) => {
+                const { padding, chartHeight } = dims;
+                const bounds = canvas.getBoundingClientRect();
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(0, 0, padding.left + (bounds.width - padding.left) * progress + 8, bounds.height + 8);
+                ctx.clip();
+
+                buildLinePath();
+
+                const areaGradient = ctx.createLinearGradient(0, padding.top, 0, padding.top + chartHeight);
+                areaGradient.addColorStop(0, 'rgba(255, 122, 89, 0.2)');
+                areaGradient.addColorStop(1, 'rgba(255, 122, 89, 0)');
+                const first = points[0];
+                const last = points[points.length - 1];
+                ctx.lineTo(last.x, padding.top + chartHeight);
+                ctx.lineTo(first.x, padding.top + chartHeight);
+                ctx.closePath();
+                ctx.fillStyle = areaGradient;
+                ctx.fill();
+
+                buildLinePath();
+                ctx.lineWidth = 2.5;
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#ff7a59';
+                ctx.shadowColor = 'rgba(255, 122, 89, 0.35)';
+                ctx.shadowBlur = 14;
                 ctx.stroke();
                 ctx.restore();
 
@@ -650,12 +757,15 @@
                     if (progress < index / (points.length - 1)) return;
                     const isPeak = point.value === Math.max(...data.map(item => item.value));
                     ctx.beginPath();
-                    ctx.fillStyle = '#ffffff';
-                    ctx.shadowBlur = isPeak ? 18 : 8;
-                    ctx.shadowColor = isPeak ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.4)';
-                    ctx.arc(point.x, point.y, isPeak ? 6 : 5, 0, Math.PI * 2);
+                    ctx.fillStyle = isPeak ? '#ff7a59' : '#f4efe7';
+                    ctx.shadowBlur = isPeak ? 16 : 6;
+                    ctx.shadowColor = isPeak ? 'rgba(255, 122, 89, 0.65)' : 'rgba(244, 239, 231, 0.35)';
+                    ctx.arc(point.x, point.y, isPeak ? 5.5 : 4, 0, Math.PI * 2);
                     ctx.fill();
                 });
+
+                ctx.shadowBlur = 0;
+                ctx.shadowColor = 'transparent';
             };
 
             const render = (progress = 0) => {
@@ -804,7 +914,9 @@
             };
 
             const drawGrid = ({ padding, chartWidth, chartHeight }) => {
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+                ctx.shadowBlur = 0;
+                ctx.shadowColor = 'transparent';
+                ctx.strokeStyle = 'rgba(244, 239, 231, 0.08)';
                 ctx.lineWidth = 1;
                 for (let i = 0; i <= 4; i += 1) {
                     const y = padding.top + (chartHeight / 4) * i;
@@ -815,22 +927,8 @@
                 }
             };
 
-            const drawLine = (progress, dims) => {
-                const { padding, chartWidth, chartHeight } = dims;
-
-                ctx.save();
+            const buildContestPath = () => {
                 ctx.beginPath();
-                ctx.rect(padding.left, padding.top, chartWidth * progress, chartHeight + 8);
-                ctx.clip();
-
-                ctx.beginPath();
-                ctx.lineWidth = 3;
-                ctx.lineJoin = 'round';
-                ctx.lineCap = 'round';
-                ctx.strokeStyle = '#e2e8f0';
-                ctx.shadowColor = 'rgba(226, 232, 240, 0.35)';
-                ctx.shadowBlur = 14;
-
                 points.forEach((point, index) => {
                     if (index === 0) {
                         ctx.moveTo(point.x, point.y);
@@ -847,7 +945,38 @@
                     const prev = points[points.length - 2];
                     ctx.quadraticCurveTo(prev.x, prev.y, last.x, last.y);
                 }
+            };
 
+            const drawLine = (progress, dims) => {
+                const { padding, chartWidth, chartHeight } = dims;
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(padding.left, padding.top, chartWidth * progress, chartHeight + 8);
+                ctx.clip();
+
+                buildContestPath();
+
+                if (points.length > 1) {
+                    const areaGradient = ctx.createLinearGradient(0, padding.top, 0, padding.top + chartHeight);
+                    areaGradient.addColorStop(0, 'rgba(255, 122, 89, 0.18)');
+                    areaGradient.addColorStop(1, 'rgba(255, 122, 89, 0)');
+                    const first = points[0];
+                    const last = points[points.length - 1];
+                    ctx.lineTo(last.x, padding.top + chartHeight);
+                    ctx.lineTo(first.x, padding.top + chartHeight);
+                    ctx.closePath();
+                    ctx.fillStyle = areaGradient;
+                    ctx.fill();
+                }
+
+                buildContestPath();
+                ctx.lineWidth = 2.5;
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#ff7a59';
+                ctx.shadowColor = 'rgba(255, 122, 89, 0.35)';
+                ctx.shadowBlur = 14;
                 ctx.stroke();
                 ctx.restore();
 
@@ -855,17 +984,20 @@
                     const threshold = points.length === 1 ? 0 : index / (points.length - 1);
                     if (progress < threshold) return;
                     ctx.beginPath();
-                    ctx.fillStyle = '#f8fafc';
+                    ctx.fillStyle = '#f4efe7';
                     ctx.shadowBlur = 8;
-                    ctx.shadowColor = 'rgba(248, 250, 252, 0.45)';
-                    ctx.arc(point.x, point.y, 4.5, 0, Math.PI * 2);
+                    ctx.shadowColor = 'rgba(244, 239, 231, 0.35)';
+                    ctx.arc(point.x, point.y, 4, 0, Math.PI * 2);
                     ctx.fill();
                 });
 
+                ctx.shadowBlur = 0;
+                ctx.shadowColor = 'transparent';
+
                 const firstPoint = points[0];
                 const lastPoint = points[points.length - 1];
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
-                ctx.font = '12px Outfit, sans-serif';
+                ctx.fillStyle = 'rgba(244, 239, 231, 0.55)';
+                ctx.font = '11px "JetBrains Mono", monospace';
                 ctx.textAlign = 'left';
                 ctx.fillText(firstPoint.label, firstPoint.x, padding.top + chartHeight + 26);
                 ctx.textAlign = 'right';

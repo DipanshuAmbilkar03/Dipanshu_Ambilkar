@@ -1,44 +1,89 @@
+/* ------------------------------------------------------------------ */
+/* Hero                                                               */
+/* ------------------------------------------------------------------ */
+
 .hero {
-  min-height: 100svh;
+  position: relative;
+  overflow: clip;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 34%),
+    radial-gradient(900px 520px at 82% 18%, rgba(255, 122, 89, 0.1), transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 40%),
     var(--page-bg);
 }
 
 .hero__content {
   width: min(100%, var(--content-max));
-  min-height: calc(100svh - 74px);
+  min-height: clamp(34rem, calc(100svh - 240px), 52rem);
   margin: 0 auto;
-  padding: clamp(1.2rem, 4vw, 3rem) var(--section-x) clamp(2.5rem, 6vw, 4.5rem);
+  padding: clamp(2.25rem, 5vw, 4.5rem) var(--section-x) clamp(2.25rem, 4vw, 3.5rem);
   display: grid;
-  gap: clamp(1.5rem, 6vw, 4rem);
+  gap: clamp(2rem, 5vw, 4.5rem);
   align-items: center;
 }
 
 .hero__text {
   min-width: 0;
   display: grid;
-  gap: clamp(0.8rem, 3vw, 1.25rem);
+  gap: clamp(1rem, 2.5vw, 1.4rem);
   text-align: left;
+  align-content: center;
 }
 
 .hero__eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
   margin: 0;
-  color: var(--accent);
-  font-size: clamp(0.72rem, 2.4vw, 0.88rem);
-  font-weight: 800;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: clamp(0.64rem, 1.4vw, 0.72rem);
+  font-weight: 500;
   letter-spacing: 0.16em;
+  line-height: 1.5;
   text-transform: uppercase;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 122, 89, 0.16);
+  animation: status-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(255, 122, 89, 0.16);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(255, 122, 89, 0.04);
+  }
 }
 
 .hero__title {
   margin: 0;
-  max-width: 11ch;
   color: var(--text);
-  font-size: clamp(2.45rem, 13vw, 4.6rem);
-  font-weight: 900;
-  line-height: 0.98;
-  letter-spacing: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.1rem, 11.5vw, 7rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+}
+
+.hero__title-intro {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: var(--muted);
+  font-size: clamp(1.25rem, 2.6vw, 1.9rem);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
 }
 
 .hero__title-line {
@@ -46,73 +91,131 @@
 }
 
 .hero__title-accent {
-  color: var(--accent-2);
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 300;
+}
+
+.hero__title-dot {
+  color: var(--text);
+  font-style: normal;
 }
 
 .hero__lead {
-  max-width: 40rem;
+  max-width: 43ch;
   margin: 0;
   color: var(--muted);
-  font-size: clamp(1rem, 3vw, 1.18rem);
+  font-size: clamp(0.98rem, 1.8vw, 1.1rem);
+  line-height: 1.7;
+  text-wrap: pretty;
 }
 
 .hero__actions {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.75rem;
-  width: min(100%, 28rem);
+  gap: 0.65rem;
+  width: min(100%, 25rem);
+  margin-top: 0.35rem;
+}
+
+.hero__meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.1rem;
+  margin-top: 0.5rem;
 }
 
 .hero__socials {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem;
+  gap: 0.5rem;
 }
 
 .hero__social-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.045);
+  border-radius: 999px;
+  background: transparent;
   transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .hero__social-link:hover {
   transform: translateY(-2px);
-  border-color: rgba(45, 212, 191, 0.65);
-  background: rgba(45, 212, 191, 0.1);
+  border-color: var(--accent);
+  background: rgba(255, 122, 89, 0.08);
 }
 
 .hero__social-icon {
-  width: 22px;
-  height: 22px;
+  width: 19px;
+  height: 19px;
   filter: invert(1);
-  opacity: 0.92;
+  opacity: 0.78;
+}
+
+.hero__location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--subtle);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero__location::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  background: var(--line-strong);
 }
 
 .hero__media {
   position: relative;
-  width: min(78vw, 320px);
-  aspect-ratio: 0.86;
+  width: min(100%, 520px);
+  aspect-ratio: 0.92;
   justify-self: center;
-  overflow: clip;
+  overflow: visible;
   isolation: isolate;
+}
+
+.hero__media::before {
+  content: "";
+  position: absolute;
+  inset: 12% 3% 2% 14%;
+  z-index: 0;
+  border: 1px solid var(--line-strong);
+  transform: rotate(2.5deg);
+}
+
+.hero__media::after {
+  content: "";
+  position: absolute;
+  right: -12%;
+  top: 8%;
+  z-index: 0;
+  width: 72%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 122, 89, 0.14), transparent 66%);
+  filter: blur(6px);
 }
 
 .card-layer {
   position: absolute;
-  left: 12%;
-  top: 4%;
-  width: 74%;
+  left: 10%;
+  top: 3%;
+  width: 76%;
   aspect-ratio: 0.78;
   z-index: var(--z, 1);
   transform: translate3d(var(--x, 0), var(--y, 0), 0) rotate(var(--rotate, 0deg)) scale(var(--scale, 1));
   transform-origin: center;
-  transition: transform 0.72s ease, filter 0.28s ease;
+  transition: transform 0.72s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .card-layer:nth-child(n + 4) {
@@ -120,31 +223,160 @@
 }
 
 .card-inner {
+  position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--radius);
+  border: 1px solid rgba(244, 239, 231, 0.24);
+  border-radius: 2px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
 }
 
 .card-layer--active .card-inner {
-  border-color: rgba(255, 255, 255, 0.42);
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.62), 0 0 30px rgba(244, 63, 94, 0.16);
+  border-color: rgba(244, 239, 231, 0.55);
+  box-shadow: 0 36px 90px rgba(0, 0, 0, 0.68);
 }
 
 .stack-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: saturate(0.92) contrast(1.04);
 }
 
 .card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 44%, rgba(5, 5, 6, 0.72));
+  background:
+    linear-gradient(180deg, transparent 48%, rgba(8, 7, 10, 0.7)),
+    linear-gradient(115deg, rgba(255, 122, 89, 0.06), transparent 46%);
 }
+
+.hero__chip {
+  position: absolute;
+  left: -0.5rem;
+  bottom: 2.25rem;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-radius: 999px;
+  background: var(--text);
+  color: #0f0c0a;
+  padding: 0.7rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.4);
+}
+
+.hero__chip .status-dot {
+  width: 5px;
+  height: 5px;
+  background: #0f0c0a;
+  box-shadow: none;
+  animation: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero stats + marquee                                               */
+/* ------------------------------------------------------------------ */
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, var(--content-max));
+  margin: 0 auto;
+  padding-inline: var(--section-x);
+  border-top: 1px solid var(--line);
+}
+
+.hero-stat {
+  padding: 1.15rem 1rem 1.3rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-stat:nth-child(odd) {
+  border-right: 1px solid var(--line);
+}
+
+.hero-stat:nth-child(even) {
+  padding-left: 1rem;
+}
+
+.hero-stat strong {
+  display: block;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.4vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.hero-stat span {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--subtle);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.marquee {
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: var(--page-bg-soft);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+.marquee__group {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 0.95rem 1.25rem 0.95rem 0;
+  margin-right: 2.5rem;
+}
+
+.marquee__group span {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.marquee__group span::after {
+  content: "\2736";
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Sections                                                           */
+/* ------------------------------------------------------------------ */
 
 .summary-panels,
 .skills,
@@ -167,34 +399,45 @@
   margin-inline: auto;
 }
 
-.summary-panels__grid,
-.skills__layout,
-.hackathons__grid {
+.summary-panels__grid {
+  counter-reset: navcard;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.summary-card,
-.skill-card,
-.timeline-card__glass,
-.leetcode-card,
-.hack-card,
-.contact__panel,
-.contact__form {
-  min-width: 0;
+  gap: 1px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.026));
-  box-shadow: var(--shadow);
+  background: var(--line);
 }
 
 .summary-card {
+  position: relative;
   display: flex;
-  min-height: 13rem;
+  min-height: 17rem;
   flex-direction: column;
   justify-content: space-between;
-  padding: clamp(1rem, 4vw, 1.45rem);
+  gap: 2rem;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  background: var(--page-bg);
+  transition: background 0.25s ease;
+}
+
+.summary-card::before {
+  counter-increment: navcard;
+  content: "0" counter(navcard);
+  color: var(--subtle);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+}
+
+.summary-card:hover {
+  background: var(--page-bg-soft);
+}
+
+.summary-card__body {
+  display: grid;
+  gap: 0.55rem;
+  align-content: start;
+  margin-top: -0.9rem;
 }
 
 .summary-card h3,
@@ -203,8 +446,14 @@
 .hack-card h3,
 .contact__panel h3 {
   margin: 0;
-  font-size: clamp(1.15rem, 4vw, 1.45rem);
-  line-height: 1.22;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.summary-card h3 {
+  font-size: clamp(1.7rem, 3vw, 2.1rem);
 }
 
 .summary-card p,
@@ -212,17 +461,25 @@
 .hack-card p,
 .contact__panel p {
   color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.summary-card p {
+  margin: 0;
 }
 
 .summary-card__eyebrow,
 .timeline-card__tag,
 .leetcode-card__kicker,
 .contact__eyebrow {
-  margin: 0 0 0.7rem;
-  color: var(--accent-3);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
+  margin: 0;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  line-height: 1.5;
   text-transform: uppercase;
 }
 
@@ -231,10 +488,24 @@
 .contact__links a {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  gap: 0.45rem;
   width: fit-content;
+  min-height: 32px;
   color: var(--text);
-  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.summary-card__link::after,
+.leetcode-card a::after {
+  content: "\2197";
+  color: var(--accent);
+  font-size: 0.95em;
+  transition: transform 0.2s ease;
 }
 
 .summary-card__link:hover,
@@ -243,35 +514,73 @@
   color: var(--accent);
 }
 
+.summary-card__link:hover::after,
+.leetcode-card a:hover::after {
+  transform: translate(2px, -2px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Skills                                                             */
+/* ------------------------------------------------------------------ */
+
 .skills {
-  background: rgba(255, 255, 255, 0.022);
+  background: var(--page-bg-soft);
+}
+
+.skills__layout {
+  display: grid;
+  border-top: 1px solid var(--line);
 }
 
 .skill-card {
-  padding: clamp(1rem, 4vw, 1.4rem);
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.skill-card h3 {
+  font-size: clamp(1.35rem, 2.4vw, 1.6rem);
+  transition: color 0.2s ease;
+}
+
+.skill-card:hover h3 {
+  color: var(--accent);
 }
 
 .skill-card__badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
-  margin-top: 1rem;
+  gap: 0.45rem;
+  align-content: start;
 }
 
 .skill-card__badges span {
   display: inline-flex;
   align-items: center;
-  min-height: 36px;
+  min-height: 32px;
   max-width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.055);
-  color: rgba(248, 250, 252, 0.88);
-  padding: 0.45rem 0.62rem;
-  font-size: 0.82rem;
-  font-weight: 700;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  padding: 0.35rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
   overflow-wrap: anywhere;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
+
+.skill-card:hover .skill-card__badges span {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+/* ------------------------------------------------------------------ */
+/* Journey                                                            */
+/* ------------------------------------------------------------------ */
 
 .journey {
   position: relative;
@@ -280,7 +589,7 @@
 .timeline {
   position: relative;
   display: grid;
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 .timeline__track {
@@ -292,66 +601,105 @@
 }
 
 .timeline-card__glass {
-  padding: clamp(1rem, 4vw, 1.35rem);
+  position: relative;
+  height: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: clamp(1.25rem, 3vw, 1.8rem);
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.timeline-card__glass:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-strong);
+}
+
+.timeline-card__glass h3 {
+  font-size: clamp(1.35rem, 2.6vw, 1.7rem);
 }
 
 .timeline-card__glass p {
-  margin: 0.5rem 0 0;
+  margin: 0.6rem 0 0;
 }
 
+.timeline-card__tag {
+  margin-bottom: 0.55rem;
+  color: var(--accent-3);
+}
+
+/* ------------------------------------------------------------------ */
+/* Academic performance                                               */
+/* ------------------------------------------------------------------ */
+
 .performance {
-  background: #090a0c;
+  background: var(--page-bg-soft);
 }
 
 .performance__layout {
   display: grid;
-  gap: 1rem;
+  gap: 0;
+  border: 1px solid var(--line);
+  background: var(--page-bg);
 }
 
 .performance__chart {
   min-width: 0;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.035);
-  padding: clamp(0.75rem, 3vw, 1.4rem);
+  padding: clamp(1rem, 3vw, 2rem);
 }
 
 .performance__chart canvas {
   width: 100%;
-  height: clamp(220px, 58vw, 320px);
+  height: clamp(220px, 32vw, 320px);
 }
 
 .performance__stats {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: 1fr;
+  gap: 0;
   padding: 0;
   margin: 0;
   list-style: none;
+  border-top: 1px solid var(--line);
 }
 
 .performance__stats li {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.045);
-  padding: 0.9rem;
-  text-align: center;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  padding: 0.8rem clamp(1rem, 3vw, 1.5rem);
   color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.performance__stats li:last-child {
+  border-bottom: 0;
 }
 
 .performance__stats strong {
-  display: block;
-  margin-top: 0.2rem;
   color: var(--text);
-  font-size: clamp(1.15rem, 5vw, 1.45rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
+
+/* ------------------------------------------------------------------ */
+/* LeetCode                                                           */
+/* ------------------------------------------------------------------ */
 
 .leetcode {
   scroll-margin-top: 5.5rem;
   background:
-    radial-gradient(circle at 15% 20%, rgba(45, 212, 191, 0.08), transparent 28rem),
-    radial-gradient(circle at 90% 70%, rgba(244, 63, 94, 0.08), transparent 26rem),
-    #060708;
+    radial-gradient(760px 480px at 88% 4%, rgba(255, 122, 89, 0.07), transparent 64%),
+    var(--page-bg);
 }
 
 .leetcode__layout {
@@ -364,18 +712,25 @@
   display: flex;
   min-width: 0;
   flex-direction: column;
-  padding: clamp(1rem, 4vw, 1.35rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
 }
 
 .leetcode-card h3 {
-  margin: 0.15rem 0 0.35rem;
-  font-size: clamp(1.45rem, 7vw, 2.1rem);
+  margin: 0.35rem 0 0.25rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
   line-height: 1.08;
 }
 
 .leetcode-card p {
   margin: 0.35rem 0;
   color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .leetcode-card__title-row {
@@ -389,47 +744,96 @@
 .leetcode-pill {
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
+  min-height: 30px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.045);
-  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  background: transparent;
+  padding: 0.3rem 0.65rem;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
   white-space: nowrap;
+}
+
+.leetcode-card--hero {
+  background: var(--text);
+  color: #0f0c0a;
+  border-color: var(--text);
+}
+
+.leetcode-card--hero .leetcode-card__kicker {
+  color: rgba(15, 12, 10, 0.58);
+}
+
+.leetcode-card--hero h3 {
+  margin-top: 0.65rem;
+  color: #0f0c0a;
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  line-height: 0.98;
+}
+
+.leetcode-card--hero p {
+  color: rgba(15, 12, 10, 0.7);
+}
+
+.leetcode-card--hero p strong {
+  color: #0f0c0a;
+}
+
+.leetcode-card--hero a {
+  margin-top: auto;
+  padding-top: 1rem;
+  color: #0f0c0a;
+}
+
+.leetcode-card--hero a::after {
+  color: var(--accent);
+}
+
+.leetcode-card--hero a:hover {
+  color: var(--accent);
+}
+
+.leetcode-card--hero > p:first-of-type {
+  margin-top: 0.15rem;
+}
+
+.leetcode-card--streak h3,
+.leetcode-card--consistency h3 {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+}
+
+.leetcode-card--streak p:last-child {
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 .consistency-meter {
   width: 100%;
-  height: 10px;
-  margin: 0.8rem 0;
+  height: 6px;
+  margin: 1rem 0 0.8rem;
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.08);
+  border: 0;
+  border-radius: 999px;
+  background: rgba(244, 239, 231, 0.1);
 }
 
 .consistency-meter span {
   display: block;
   width: calc(var(--consistency, 0) * 1%);
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), #93c5fd);
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-3));
 }
 
 .leetcode-difficulty {
   display: grid;
-  gap: 0.5rem;
+  gap: 0;
   padding: 0;
-  margin: 0.65rem 0 0;
+  margin: 0.9rem 0 0;
   list-style: none;
-}
-
-.leetcode-difficulty li,
-.leetcode-contest-meta div,
-.leetcode-badge-item {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius);
-  background: rgba(0, 0, 0, 0.22);
+  border-top: 1px solid var(--line);
 }
 
 .leetcode-difficulty li {
@@ -437,99 +841,126 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  padding: 0.62rem 0.75rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.leetcode-difficulty li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.leetcode-difficulty li strong {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
 }
 
 .leetcode-difficulty li:nth-child(1) strong {
-  color: #4ade80;
+  color: var(--mint);
 }
 
 .leetcode-difficulty li:nth-child(2) strong {
-  color: #facc15;
+  color: var(--accent-3);
 }
 
 .leetcode-difficulty li:nth-child(3) strong {
-  color: #fb7185;
+  color: var(--accent);
 }
 
 .leetcode-card--contest canvas {
   width: 100%;
-  height: clamp(210px, 62vw, 260px);
+  height: clamp(210px, 40vw, 260px);
   margin-top: 0.75rem;
 }
 
 .leetcode-contest-meta {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.55rem;
-  margin-top: 0.8rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 0.9rem;
+  border-top: 1px solid var(--line);
 }
 
 .leetcode-contest-meta div {
   min-width: 0;
-  padding: 0.62rem 0.7rem;
+  padding: 0.8rem 1rem 0.1rem 0;
+  border: 0;
+  background: transparent;
 }
 
 .leetcode-contest-meta span {
   display: block;
   color: var(--subtle);
-  font-size: 0.76rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .leetcode-contest-meta strong {
   display: block;
-  margin-top: 0.2rem;
+  margin-top: 0.15rem;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
 }
 
 .leetcode-heatmap-shell {
-  margin-top: 0.75rem;
+  margin-top: 0.9rem;
   overflow: clip;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(0, 0, 0, 0.22);
-  padding: clamp(0.45rem, 2.4vw, 0.8rem);
+  background: rgba(0, 0, 0, 0.18);
+  padding: clamp(0.5rem, 2vw, 0.8rem);
 }
 
 .leetcode-heatmap {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: clamp(6px, 2.05vw, 12px);
-  grid-template-rows: repeat(7, clamp(6px, 2.05vw, 12px));
-  gap: clamp(2px, 0.55vw, 4px);
+  grid-auto-columns: clamp(6px, 1.1vw, 13px);
+  grid-template-rows: repeat(7, clamp(6px, 1.1vw, 13px));
+  gap: clamp(2px, 0.35vw, 4px);
   max-width: 100%;
 }
 
 .heatmap-cell {
   width: 100%;
   height: 100%;
-  border-radius: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(255, 255, 255, 0.06);
+  border-radius: 1px;
+  border: 1px solid transparent;
+  background: rgba(244, 239, 231, 0.07);
 }
 
 .heatmap-cell--empty {
-  border-color: transparent;
   background: transparent;
 }
 
 .heatmap-cell--level-0 {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(244, 239, 231, 0.07);
 }
 
 .heatmap-cell--level-1 {
-  background: rgba(45, 212, 191, 0.3);
+  background: rgba(255, 122, 89, 0.22);
 }
 
 .heatmap-cell--level-2 {
-  background: rgba(45, 212, 191, 0.5);
+  background: rgba(255, 122, 89, 0.44);
 }
 
 .heatmap-cell--level-3 {
-  background: rgba(251, 191, 36, 0.65);
+  background: rgba(255, 122, 89, 0.68);
 }
 
 .heatmap-cell--level-4 {
-  background: rgba(244, 63, 94, 0.8);
+  background: rgba(255, 122, 89, 1);
 }
 
 .leetcode-heatmap-legend {
@@ -537,9 +968,12 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.65rem;
+  margin-top: 0.7rem;
   color: var(--subtle);
-  font-size: 0.76rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .leetcode-heatmap-scale {
@@ -548,35 +982,40 @@
 }
 
 .leetcode-heatmap-scale span {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
+  width: 11px;
+  height: 11px;
+  border-radius: 1px;
 }
 
 .leetcode-heatmap-scale span[data-level="0"] {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(244, 239, 231, 0.07);
 }
 
 .leetcode-heatmap-scale span[data-level="1"] {
-  background: rgba(45, 212, 191, 0.3);
+  background: rgba(255, 122, 89, 0.22);
 }
 
 .leetcode-heatmap-scale span[data-level="2"] {
-  background: rgba(45, 212, 191, 0.5);
+  background: rgba(255, 122, 89, 0.44);
 }
 
 .leetcode-heatmap-scale span[data-level="3"] {
-  background: rgba(251, 191, 36, 0.65);
+  background: rgba(255, 122, 89, 0.68);
 }
 
 .leetcode-heatmap-scale span[data-level="4"] {
-  background: rgba(244, 63, 94, 0.8);
+  background: rgba(255, 122, 89, 1);
 }
 
 .leetcode-note,
 .leetcode-empty-state {
   color: var(--subtle);
-  font-size: 0.86rem;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.leetcode-note {
+  margin: 0.65rem 0 0;
 }
 
 .leetcode-empty-state {
@@ -588,8 +1027,9 @@
 
 .leetcode-badges {
   display: grid;
-  gap: 0.65rem;
+  gap: 0;
   margin-top: 0.65rem;
+  border-top: 1px solid var(--line);
 }
 
 .leetcode-badge-item {
@@ -597,122 +1037,245 @@
   align-items: center;
   gap: 0.75rem;
   min-width: 0;
-  padding: 0.65rem;
+  padding: 0.65rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+}
+
+.leetcode-badge-item:last-child {
+  border-bottom: 0;
 }
 
 .leetcode-badge-item img {
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   flex: 0 0 auto;
   object-fit: contain;
 }
 
 .leetcode-badge-item h4 {
   margin: 0;
-  font-size: 0.96rem;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 400;
 }
 
 .leetcode-badge-item p {
-  margin: 0.15rem 0 0;
-  font-size: 0.82rem;
+  margin: 0.1rem 0 0;
+  color: var(--subtle);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+}
+
+.leetcode-card--badges > p:last-child {
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Hackathons                                                         */
+/* ------------------------------------------------------------------ */
+
+.hackathons {
+  background: var(--page-bg-soft);
+}
+
+.hackathons__grid {
+  counter-reset: hack;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid var(--line);
 }
 
 .hack-card {
-  overflow: hidden;
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem 0 1.75rem;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  transition: background 0.2s ease;
 }
 
 .hack-card__media {
   display: flex;
-  min-height: 8rem;
+  min-height: 0;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  background:
-    linear-gradient(135deg, rgba(45, 212, 191, 0.12), rgba(244, 63, 94, 0.12)),
-    rgba(255, 255, 255, 0.035);
+  justify-content: flex-start;
+  gap: 0.8rem;
+  background: transparent;
   color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-align: center;
+  text-align: left;
+}
+
+.hack-card__media::before {
+  counter-increment: hack;
+  content: "0" counter(hack);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-style: italic;
+  line-height: 1;
+}
+
+.hack-card__media span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  color: var(--subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .hack-card__body {
-  padding: 1rem;
+  padding: 0;
+}
+
+.hack-card h3 {
+  font-size: clamp(1.4rem, 2.6vw, 1.75rem);
+  transition: color 0.2s ease;
+}
+
+.hack-card:hover h3 {
+  color: var(--accent);
 }
 
 .hack-card__body p {
-  margin: 0.55rem 0 0;
+  margin: 0.5rem 0 0;
+  max-width: 44ch;
 }
 
+/* ------------------------------------------------------------------ */
+/* Contact                                                            */
+/* ------------------------------------------------------------------ */
+
 .contact {
-  background: #090a0c;
+  background:
+    radial-gradient(820px 480px at 12% 100%, rgba(255, 122, 89, 0.08), transparent 62%),
+    #08070a;
 }
 
 .contact__layout {
   display: grid;
-  gap: 1rem;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
 }
 
-.contact__panel,
-.contact__form {
-  padding: clamp(1rem, 4vw, 1.45rem);
+.contact__panel {
+  display: grid;
+  gap: 0.85rem;
+  align-content: start;
+}
+
+.contact__panel h3 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.02;
+  max-width: 18ch;
+}
+
+.contact__panel p {
+  max-width: 42ch;
+  margin: 0;
 }
 
 .contact__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  margin-top: 1rem;
+  gap: 0.6rem 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.contact__links a {
+  min-height: 36px;
+  color: var(--muted);
 }
 
 .contact__form {
   display: grid;
-  gap: 0.6rem;
+  gap: 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: clamp(1.25rem, 3vw, 2rem);
 }
 
 .contact__form label {
-  color: var(--muted);
-  font-weight: 800;
+  margin-top: 0.4rem;
+  color: var(--subtle);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .contact__form input,
 .contact__form textarea {
   width: 100%;
   min-width: 0;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.06);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
   color: var(--text);
-  padding: 0.85rem 0.9rem;
+  padding: 0.65rem 0 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  transition: border-color 0.2s ease;
+}
+
+.contact__form input::placeholder,
+.contact__form textarea::placeholder {
+  color: var(--subtle);
+  opacity: 0.85;
+}
+
+.contact__form input:focus,
+.contact__form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 
 .contact__form textarea {
-  min-height: 8.5rem;
+  min-height: 7rem;
   resize: vertical;
 }
 
 .contact__form .button {
   width: 100%;
+  margin-top: 0.9rem;
 }
 
 .contact__form-note {
-  min-height: 1.4rem;
-  margin: 0;
+  min-height: 1.3rem;
+  margin: 0.1rem 0 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.04em;
 }
+
+/* ------------------------------------------------------------------ */
+/* Utilities                                                          */
+/* ------------------------------------------------------------------ */
 
 .tooltip {
   position: fixed;
   z-index: 70;
   pointer-events: none;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(0, 0, 0, 0.88);
-  color: #ffffff;
-  padding: 0.35rem 0.55rem;
-  font-size: 0.76rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  background: #141117;
+  color: var(--text);
+  padding: 0.4rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.03em;
   opacity: 0;
   transition: opacity 0.15s ease;
 }
@@ -723,14 +1286,18 @@
 
 .has-js [data-animate] {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .has-js [data-animate].is-visible {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                         */
+/* ------------------------------------------------------------------ */
 
 @media (min-width: 390px) {
   .hero__actions {
@@ -740,25 +1307,52 @@
 
 @media (min-width: 640px) {
   .hero__content {
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 40vw);
+    grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.8fr);
   }
 
   .hero__media {
-    width: min(38vw, 390px);
+    justify-self: end;
+    width: min(40vw, 430px);
   }
 
   .card-layer:nth-child(n + 4) {
     display: block;
   }
 
-  .summary-panels__grid,
-  .skills__layout,
-  .hackathons__grid {
+  .hero-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .hero-stat {
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+    padding: 1.4rem 1.25rem;
+  }
+
+  .hero-stat:first-child {
+    padding-left: 0;
+  }
+
+  .hero-stat + .hero-stat {
+    padding-left: 1.25rem;
+  }
+
+  .hero-stat:last-child {
+    border-right: 0;
+  }
+
+  .summary-panels__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .performance__stats {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+  .hackathons__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .hack-card {
+    grid-template-columns: 1fr;
+    align-content: start;
   }
 
   .leetcode__layout {
@@ -772,29 +1366,81 @@
   }
 
   .leetcode-contest-meta {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .contact__form .button {
+    width: fit-content;
+  }
+}
+
+@media (min-width: 860px) {
+  .skill-card {
+    grid-template-columns: minmax(160px, 0.32fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
   }
 }
 
 @media (min-width: 1024px) {
   .hero__content {
-    grid-template-columns: minmax(0, 0.95fr) minmax(420px, 0.75fr);
+    grid-template-columns: minmax(0, 1fr) minmax(400px, 0.84fr);
+    gap: clamp(2rem, 4vw, 3.75rem);
   }
 
   .hero__title {
-    font-size: clamp(4.4rem, 7vw, 6.8rem);
+    font-size: clamp(4.6rem, 7.4vw, 7rem);
   }
 
   .hero__media {
-    width: min(40vw, 540px);
+    width: min(36vw, 500px);
   }
 
   .summary-panels__grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .skills__layout {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+  .performance__layout {
+    grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.55fr);
+  }
+
+  .performance__stats {
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+
+  .performance__stats li {
+    padding-block: 1rem;
+  }
+
+  .leetcode__layout {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .leetcode-card--hero,
+  .leetcode-card--streak,
+  .leetcode-card--consistency {
+    grid-column: span 4;
+  }
+
+  .leetcode-card--contest {
+    grid-column: span 8;
+  }
+
+  .leetcode-card--difficulty {
+    grid-column: span 4;
+  }
+
+  .leetcode-card--heatmap {
+    grid-column: span 8;
+  }
+
+  .leetcode-card--badges {
+    grid-column: span 4;
+  }
+
+  .contact__layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
   }
 
   .timeline {
@@ -808,103 +1454,79 @@
     bottom: 0;
     left: 50%;
     display: block;
-    width: 2px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 1px;
+    background: var(--line);
     transform: translateX(-50%);
   }
 
   .timeline__track-fill {
     width: 100%;
     height: 0;
-    background: linear-gradient(180deg, var(--accent), rgba(244, 63, 94, 0));
+    background: linear-gradient(180deg, var(--accent), rgba(255, 122, 89, 0));
   }
 
   .timeline-card {
     width: 50%;
-    padding: 1rem 2rem;
+    padding: 0 3rem 3rem 0;
   }
 
   .timeline-card--right {
     margin-left: 50%;
+    padding: 0 0 3rem 3rem;
   }
 
-  .performance__layout {
-    grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
-    align-items: stretch;
+  .timeline-card::after {
+    content: "";
+    position: absolute;
+    top: 2.35rem;
+    width: 7px;
+    height: 7px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    background: var(--page-bg);
   }
 
-  .performance__stats {
-    grid-template-columns: 1fr;
+  .timeline-card--left::after {
+    right: -4px;
   }
 
-  .leetcode__layout {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-  }
-
-  .leetcode-card--hero {
-    grid-column: span 5;
-  }
-
-  .leetcode-card--contest {
-    grid-column: span 7;
-  }
-
-  .leetcode-card--streak,
-  .leetcode-card--consistency,
-  .leetcode-card--difficulty,
-  .leetcode-card--badges {
-    grid-column: span 4;
-  }
-
-  .leetcode-card--heatmap {
-    grid-column: span 8;
-  }
-
-  .hackathons__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .contact__layout {
-    grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
-  }
-
-  .contact__form .button {
-    width: fit-content;
+  .timeline-card--right::after {
+    left: -4px;
   }
 }
 
 @media (min-width: 1440px) {
-  .hero__content {
-    min-height: calc(100svh - 78px);
-  }
-
   .summary-card {
-    min-height: 14.5rem;
+    min-height: 18rem;
   }
 }
 
 @media (max-width: 639px) {
-  .hero__title {
-    max-width: 10ch;
-  }
-
   .hero__media {
-    max-height: 270px;
-    margin-top: -0.4rem;
+    max-height: 330px;
+    margin-top: 0.5rem;
   }
 
-  .summary-panels,
-  .skills,
-  .journey,
-  .performance,
-  .leetcode,
-  .hackathons,
-  .contact {
-    padding-top: clamp(2.75rem, 12vw, 4rem);
-    padding-bottom: clamp(2.75rem, 12vw, 4rem);
+  .hero__chip {
+    left: 0.25rem;
+    bottom: 1.4rem;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.58rem;
+  }
+
+  .summary-card {
+    min-height: 14rem;
+  }
+
+  .performance__stats li {
+    padding-block: 0.75rem;
+  }
+
+  .contact__links {
+    gap: 0.35rem 1rem;
   }
 
   .has-js [data-animate] {
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
 }
